@@ -4,7 +4,7 @@ namespace App\Service\Character;
 
 use App\Service\Character\CharacterBuilder;
 
-class CharacterInterface
+class CharacterService
 {
     protected $userId;
 
