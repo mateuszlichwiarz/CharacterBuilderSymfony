@@ -29,11 +29,11 @@ class Character
     #[ORM\Column]
     private ?int $skillPoints = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Armor $armor = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne]
     private ?Weapon $weapon = null;
+
+    #[ORM\ManyToOne]
+    private ?Armor $armor = null;
 
     public function getId(): ?int
     {
@@ -100,6 +100,18 @@ class Character
         return $this;
     }
 
+    public function getWeapon(): ?Weapon
+    {
+        return $this->weapon;
+    }
+
+    public function setWeapon(?Weapon $weapon): self
+    {
+        $this->weapon = $weapon;
+
+        return $this;
+    }
+
     public function getArmor(): ?Armor
     {
         return $this->armor;
@@ -112,15 +124,4 @@ class Character
         return $this;
     }
 
-    public function getWeapon(): ?Weapon
-    {
-        return $this->weapon;
-    }
-
-    public function setWeapon(?Weapon $weapon): self
-    {
-        $this->weapon = $weapon;
-
-        return $this;
-    }
 }

@@ -39,6 +39,33 @@ class ArmorRepository extends ServiceEntityRepository
         }
     }
 
+    public function findArmorByName($name)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findArmorById($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function putArmorToCharacter($name)
+    {
+        return $this->createQueryBuilder('')
+            ->update('Character', 'c')
+            ->set('c.armor')
+            ->where('')
+            ->getQuery();
+    }
+
 //    /**
 //     * @return Armor[] Returns an array of Armor objects
 //     */

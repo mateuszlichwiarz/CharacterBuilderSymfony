@@ -39,6 +39,17 @@ class CharacterRepository extends ServiceEntityRepository
         }
     }
 
+    public function updateCharacterArmorById($armorId,$characterId)
+    {
+        return $this->createQueryBuilder('c')
+            ->update('Character', 'c')
+            ->set('c.armor', ':newArmor')
+            ->where('c.id', ':characterId')
+            ->setParameter('newArmor', $armorId)
+            ->setParameter('characterId', $characterId)
+            ->getQuery();
+    }
+
 //    /**
 //     * @return Character[] Returns an array of Character objects
 //     */
