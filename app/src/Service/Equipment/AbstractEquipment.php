@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Logic\Equipment;
+namespace App\Service\Equipment;
 
 abstract class AbstractEquipment
 {
