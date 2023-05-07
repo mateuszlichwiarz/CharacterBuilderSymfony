@@ -3,36 +3,37 @@
 namespace App\Service\Character;
 
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Repository\CharacterRepository;
+use Symfony\Repository\UserRepository;
+
+use App\Service\Equipment\ArmorEquipment;
+use App\Service\Equipment\WeaponEquipment;
 
 class CharacterBuilder extends AbstractCharacter
 {
-    private $characterRepository;
+    private $userRepository;
 
     public function __constuct(
-        CharacterRepository $characterRepository,
+        UserRepository $userRepository,
         )
     {
-        $this->characterRepository = $characterRepository;
+        $this->userRepository = $userRepository;
 
     }
 
-
-    public function create($object, Weapon $weapon, Armor $armor)
+    public function create($object, WeaponEquipment $weaponEquipment, ArmorEquipment $armorEquipment)
     {
-        $user = $this->getSecurityUser();
 
         $character = $object;
-
         $character->setExp('0');
         $character->setLvl('1');
         $character->setSkillPoints(10);
-        $character->Weapon->PutOnByName('fists');
-        $character->Armor->PutOnByName('pants');
+        $character->WeaponEquipment->PutOnByName('fists');
+        $character->ArmorEquipment->PutOnByName('pants');
 
-        $character->setUser();
 
-        $this->characterRepository->save($character);
+        $this->userRepository->setCharacter($character);
         
     }
 }
+
+//$characterBuilder = $this->CharacterBuilder->create();

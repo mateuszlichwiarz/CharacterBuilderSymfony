@@ -56,6 +56,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+    public function setCharacter($character)
+    {
+        $this->createQueryBuilder('u')
+             ->update('User', 'u')
+             ->set('playerCharacter', ':playerCharacter')
+             ->setParameter('playerCharacter', $character)
+             ->getQuery();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

@@ -37,6 +37,7 @@ class CharacterService
     }
 }
 
+/*
 $character->setName('chuj');
 $character->setStrength(5);
 
@@ -65,5 +66,5 @@ $this->Update->userId($id)->Dexterity(5);
 $this->Get->userId($id)->all();
 
 $this->CharacterInterface->delete();
-
+*/
 
