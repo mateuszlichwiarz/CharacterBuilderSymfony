@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Logic\Equipment;
+namespace App\Service\Equipment;
 
 
 use App\Service\Equipment\AbstractEquipment;
 use App\Repository\ArmorRepository;
 
 
-class Armor extends AbstractEquipment
+class ArmorEquipment extends AbstractEquipment
 {
     private ArmorRepository $armorRepository;
     private CharacterRepository $characterRepository;
@@ -30,23 +30,19 @@ class Armor extends AbstractEquipment
         }
     }
 
-    public function putOnCharacterByName($name)
+    public function putOnByName($name)
     {
         $armor = $this->findEquipmentById($name);
         $armorId = $armor->getId(); //na czuja
         $this->characterRepository->updateCharacter($armorId, 'armor');
     }
 
-    public function putOnCharacterById($id)
+    public function putOnById($id)
     {
         $armor = $this->findEquipmentById($id);
         $armorId = $armor->getId(); //na czuja
         $this->characterRepository->updateCharacter($armorId, 'armor');
     }
 
-    public function putOnByName($name)
-    {
-        $armor = $this->armorRepository->findArmorByName($name);   
-    }
     
 }

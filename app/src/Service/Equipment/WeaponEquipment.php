@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Logic\Equipment;
+namespace App\Service\Equipment;
 
 
 use App\Service\Equipment\AbstractEquipment;
 use App\Repository\WeaponRepository;
 
 
-class Weapon extends AbstractEquipment
+class WeaponEquipment extends AbstractEquipment
 {
     private WeaponRepository $weaponRepository;
     public function __construct(WeaponRepository $weaponRepository)
