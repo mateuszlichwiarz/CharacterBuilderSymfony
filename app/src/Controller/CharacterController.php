@@ -77,7 +77,7 @@ class CharacterController extends AbstractController
 
     
     #[Route("/character/creator", name: 'character_creator')]
-    public function create(ManagerRegistry $doctrine,EntityManagerInterface $entityManager, Request $request): Response
+    public function create(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request): Response
     {
 
         /** @var \App\Entity\User $user */
@@ -94,9 +94,8 @@ class CharacterController extends AbstractController
             $armor  = $entityManager->getRepository(Armor::class)->find(1);
 
                 $character = $form->getData();
-                $this->characterManager->create($character);
+                //$this->characterManager->create($character);
                 
-                /*
                 $character = $form->getData();
                 $character->setLvl(1);
                 $character->setExp(1);
@@ -108,7 +107,7 @@ class CharacterController extends AbstractController
 
                 $entityManager->persist($character, $user);
                 $entityManager->flush();
-                */
+                
                 return $this->redirectToRoute('character_index');
         }
 
