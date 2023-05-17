@@ -3,38 +3,47 @@
 namespace App\Service\Equipment;
 
 
-use App\Service\Equipment\AbstractEquipment;
+use App\Repository\CharacterRepository;
 use App\Repository\WeaponRepository;
+
+use App\Service\Equipment\AbstractEquipment;
 
 
 class WeaponEquipment extends AbstractEquipment
 {
-    private WeaponRepository $weaponRepository;
-    public function __construct(WeaponRepository $weaponRepository)
-    {
-        $this->weaponRepository = $weaponRepository;
-    }
-
-    private function isExist($name)
-    {
-        $weapon = $this->weaponRepository->findWeaponById($id);
-    }
+    public function __construct(
+        private WeaponRepository $weaponRepository,
+        private CharacterRepository $characterRepository
+        )
+    {}
 
     public function putOnByName($name)
     {
-        $weapon = $this->weaponRepository->findWeaponById($id);
-        if($weapon !== null)
-        {
-            
-        }else
-        {
+        $armor = $this->findEquipmentById($name, $this->weaponRepository);
+        $armorId = $armor->getId();
 
-        }
+        $this->characterRepository->update($armorId, 'armor');
 
     }
     
     public function putOnById($id)
     {
-        $weapon = $this->weaponRepository->findWeaponByName($name);
+        $weapon = $this->findEquipmentById($id, $this->weaponRepository);
+        $weaponId = $weapon->getId();
+        $this->characterRepository->updateCharacter($weaponId, 'weapon');
+    }
+
+    public function getWeaponById(int $id): string
+    {
+        $weapon = $this->findEquipmentById($id, $this->weaponRepository);
+        
+        return $weapon->getName();
+    }
+
+    public function getWeaponByName(string $name): int
+    {
+        $weapon = $this->findEquipmentByName($name, $this->weaponRepository);
+        
+        return $weapon->getId();
     }
 }
