@@ -39,6 +39,24 @@ class WeaponRepository extends ServiceEntityRepository
         }
     }
 
+    public function findById(int $id): ?Weapon
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findByName(string $name): ?Weapon
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Weapon[] Returns an array of Weapon objects
 //     */

@@ -39,7 +39,7 @@ class ArmorRepository extends ServiceEntityRepository
         }
     }
 
-    public function findArmorByName($name)
+    public function findByName(string $name): ?Armor
     {
         return $this->createQueryBuilder('a')
             ->where('a.name = :name')
@@ -48,7 +48,7 @@ class ArmorRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findArmorById($id)
+    public function findById(int $id): ?Armor
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.id = :id')
@@ -57,11 +57,11 @@ class ArmorRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function putArmorToCharacter($name)
+    public function update($name)
     {
         return $this->createQueryBuilder('')
             ->update('Character', 'c')
-            ->set('c.armor')
+            ->set('c.armor', $name)
             ->where('')
             ->getQuery();
     }
