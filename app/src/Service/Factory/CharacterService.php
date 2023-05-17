@@ -8,22 +8,22 @@ class CharacterService
 {
     protected $userId;
 
-    public function __construct(private CharacterBuilder $characterBuilder, private CharacterUpdater $characterUpdater)
+    public function __construct(private CharacterFactory $characterBuilder, private CharacterUpdater $characterUpdater)
     {}
 
     public function create($object)
     {
-        return $this->CharacterBuilder->init($object);
+        //return $this->characterBuilder->create($object);
     }
 
     public function get($key)
     {
-        return $this->CharacterUpdater->set($key);
+        //return $this->CharacterUpdater->set($key);
     }
 
     public function update($method)
     {
-        $this->CharacterUpdater();
+        //$this->CharacterUpdater();
     }
 
     public function delete()
@@ -42,6 +42,8 @@ $character->setName('chuj');
 $character->setStrength(5);
 
 $this->CharacterService->create($character);
+$strength = new Strength(4);
+$this->CharacterFactory->create($character);
 
 $characterEquipment = $this->CharacterService->userId($id)->get('equipment');
 $characterWeapon    = $this->CharacterService->userId($id)->get('weapon');
@@ -66,5 +68,9 @@ $this->Update->userId($id)->Dexterity(5);
 $this->Get->userId($id)->all();
 
 $this->CharacterInterface->delete();
-*/
 
+$this->CharacterBuilder::setUserId($id)->create($object);
+
+$this->CharacterBuilder::setUserId($id)->update();
+
+*/

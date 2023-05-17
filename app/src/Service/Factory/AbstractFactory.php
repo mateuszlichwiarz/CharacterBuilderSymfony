@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Service\Character;
+namespace App\Service\Factory;
 
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Repository\CharacterRepository;
 
 
-class AbstractCharacter
+class AbstractFactory
 {
     
 }
