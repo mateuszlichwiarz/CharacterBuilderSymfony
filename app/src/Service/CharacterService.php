@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Service\Factory;
+namespace App\Service;
 
 use App\Service\Factory\CharacterFactory;
-use App\Service\Factory\CharacterUpdater;
+use App\Service\Updater\CharacterUpdater;
 
 class CharacterService
 {
@@ -47,7 +47,6 @@ $character->setStrength(5);
 
 $this->CharacterService->create($character);
 $str = new Strength(4);
-$
 $this->CharacterFactory->create($character);
 
 $characterEquipment = $this->CharacterService->userId($id)->get('equipment');
