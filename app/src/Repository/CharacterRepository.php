@@ -39,25 +39,43 @@ class CharacterRepository extends ServiceEntityRepository
         }
     }
 
-    public function updateArmorById(Character $character, int $armorId)
+    public function updateArmorById(int $armorId)
     {
         return $this->createQueryBuilder('c')
             ->update('Character', 'c')
             ->set('c.armor', ':armor')
             ->where('c.id', ':id')
             ->setParameter('armor', $armorId)
-            ->setParameter('character', $character)
             ->getQuery();
     }
 
-    public function updateArmorByName(Character $character, string $armorName)
+    public function updateArmorByName(string $armorName)
     {
         return $this->createQueryBuilder('c')
             ->update('Character', 'c')
             ->set('c.armor', ':armor')
             ->where('c.name', ':name')
             ->setParameter('armor', $armorName)
-            ->setParameter('character', $character)
+            ->getQuery();
+    }
+
+    public function updateWeaponById(int $weaponId)
+    {
+        return $this->createQueryBuilder('c')
+            ->update('Character', 'c')
+            ->set('c.weapon', ':weapon')
+            ->where('c.id', ':id')
+            ->setParameter('weapon', $weaponId)
+            ->getQuery();
+    }
+
+    public function updateWeaponByName(string $weaponName)
+    {
+        return $this->createQueryBuilder('c')
+            ->update('Character', 'c')
+            ->set('c.weapon', ':weapon')
+            ->where('c.name', ':name')
+            ->setParameter('weapon', $weaponName)
             ->getQuery();
     }
 
