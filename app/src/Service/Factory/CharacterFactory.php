@@ -9,7 +9,9 @@ use App\Repository\UserRepository;
 use App\Service\Equipment\ArmorEquipment;
 use App\Service\Equipment\WeaponEquipment;
 
-class CharacterFactory
+use App\Service\Factory\AbstractFactory;
+
+class CharacterFactory extends AbstractFactory
 {
     public function __construct(
         private UserRepository $userRepository,
@@ -24,11 +26,9 @@ class CharacterFactory
         $character->setExp('0');
         $character->setLvl('1');
         $character->setSkillPoints(10);
-        $character->$this->armorEquipment->PutOnByName('pants');
-        $character->$this->weaponEquipment->PutOnByName('pantaloons');
+        $this->armorEquipment->PutOnByName('pantaloons');
+        $this->weaponEquipment->PutOnByName('fists');
         $this->userRepository->setCharacter($character);
         
     }
 }
-
-//$characterBuilder = $this->CharacterBuilder->create();
