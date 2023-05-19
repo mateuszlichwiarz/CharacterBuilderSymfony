@@ -31,5 +31,17 @@ class ArmorEquipment extends AbstractEquipment
         $this->characterRepository->updateCharacter($armorName, 'armor');
     }
 
-    
+    public function getArmorById(int $id): string
+    {
+        $weapon = $this->findEquipmentById($id, $this->armorRepository);
+        
+        return $weapon->getName();
+    }
+
+    public function getArmorByName(string $name): int
+    {
+        $weapon = $this->findEquipmentByName($name, $this->armorRepository);
+        
+        return $weapon->getId();
+    }
 }
