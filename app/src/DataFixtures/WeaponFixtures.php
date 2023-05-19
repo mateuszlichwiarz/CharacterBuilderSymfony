@@ -17,8 +17,7 @@ class WeaponFixtures extends Fixture
         $weapon->setType('blunt');
         $weapon->setReq(0);
 
-         $manager->persist($weapon);
-
+        $manager->persist($weapon);
         $manager->flush();
     }
 }

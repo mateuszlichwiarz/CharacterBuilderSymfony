@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Service\Character;
+namespace App\Service\Factory;
 
-use App\Service\Character\CharacterBuilder;
+use App\Service\Factory\CharacterFactory;
+use App\Service\Factory\CharacterUpdater;
 
 class CharacterService
 {
     protected $userId;
 
-    public function __construct(private CharacterFactory $characterBuilder, private CharacterUpdater $characterUpdater)
+    public function __construct(
+        private CharacterFactory $characterFactory,
+        private CharacterUpdater $characterUpdater
+        )
     {}
 
     public function create($object)
@@ -42,7 +46,8 @@ $character->setName('chuj');
 $character->setStrength(5);
 
 $this->CharacterService->create($character);
-$strength = new Strength(4);
+$str = new Strength(4);
+$
 $this->CharacterFactory->create($character);
 
 $characterEquipment = $this->CharacterService->userId($id)->get('equipment');

@@ -1,17 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\tests\Service\Equipment;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-
 
 use App\Service\Equipment\WeaponEquipment;
 
 class WeaponEquipmentTest extends KernelTestCase
 {
-    public function testFindMethodById(): void
+    public function testFindWeaponMethodById(): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -22,7 +19,7 @@ class WeaponEquipmentTest extends KernelTestCase
         $this->assertSame('fists', $weaponId);
     }
 
-    public function testFindMethodByName(): void
+    public function testFindWeaponMethodByName(): void
     {
         self::bootKernel();
         $container = static::getContainer();

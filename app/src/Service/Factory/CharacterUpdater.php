@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Character;
+namespace App\Service\Factory;
 
 
 class CharacterUpdater

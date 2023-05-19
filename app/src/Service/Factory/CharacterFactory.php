@@ -14,6 +14,7 @@ class CharacterFactory
     public function __construct(
         private UserRepository $userRepository,
         private ArmorEquipment $armorEquipment,
+        private WeaponEquipment $weaponEquipment,
         )
     {
     }
@@ -24,6 +25,7 @@ class CharacterFactory
         $character->setLvl('1');
         $character->setSkillPoints(10);
         $character->$this->armorEquipment->PutOnByName('pants');
+        $character->$this->weaponEquipment->PutOnByName('pantaloons');
         $this->userRepository->setCharacter($character);
         
     }
