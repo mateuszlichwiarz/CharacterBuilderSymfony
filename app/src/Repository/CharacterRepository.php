@@ -39,6 +39,15 @@ class CharacterRepository extends ServiceEntityRepository
         }
     }
 
+    public function findById(int $id): ?Character
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function updateArmorById(int $armorId)
     {
         return $this->createQueryBuilder('c')
