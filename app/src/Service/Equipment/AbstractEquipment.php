@@ -4,8 +4,8 @@ namespace App\Service\Equipment;
 
 abstract class AbstractEquipment
 {
-    abstract public function putOnById($id);
-    abstract public function putOnByName($name);
+    abstract public function putOnById(int $id): object;
+    abstract public function putOnByName(string $name): object;
 
     public function findEquipmentById(int $id, $repository): object
     {
