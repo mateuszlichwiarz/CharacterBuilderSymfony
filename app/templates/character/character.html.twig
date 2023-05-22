@@ -27,7 +27,7 @@
                 {
                     sp--;
                     str++;
-                }else if(operation == 'sub' && sp < {{ sp }})
+                }else if(operation == 'sub' && sp < {{ character.getSkillPoints() }})
                 {
                     sp++;
                     str--;
@@ -36,7 +36,7 @@
                 document.getElementById('sp').innerHTML = sp;
                 document.getElementById('str').innerHTML = str;
 
-                if(sp == {{ sp }})
+                if(sp == {{ character.getSkillPoints() }})
                 {
                     var form = '';
                     document.getElementById('form').innerHTML = form;
@@ -59,14 +59,14 @@
             ----------------------------
             <div class="info">
                 <br>
-                Name:         {{ name }}
+                Name:         {{ character.name() }}
                 <br>
-                Level:        {{ lvl }}   
+                Level:        {{ character.lvl() }}   
                 <br>
-                Expirience:   {{ exp }}    
+                Expirience:   {{ character.exp() }}    
                 <br>
                 Skill Points:
-                <div id="sp">{{sp}}</div>
+                <div id="sp">{{ character.getSkillPoints() }}</div>
                 <br><br>
                 ----------------------------
             </div>
@@ -75,7 +75,7 @@
                 Stats:
                 <br>
                 Strength:
-                    <div id="str">{{str}}</div>
+                    <div id="str">{{ character.getStr() }}</div>
                         <div id="str_increase">
                             <button onclick="changeStats('add');" type="button"> + </button>
                         </div>
@@ -91,15 +91,15 @@
             <div class="equipment">
                 Equipment:
                 <br><br>
-                Weapon: {{ weaponName }}
+                Weapon: {{ character.getWeapon().getName() }}
                 <br>
-                Damage: {{ weaponDmg }}
+                Damage: {{ character.getWeapon().getDmg() }}
                 <br>
-                Type: {{ weaponType }}
+                Type: {{ character.getWeapon().getType()}}
                 <br><br>
-                Armor: {{ armorName }}
+                Armor: {{ character.getArmor().getName() }}
                 <br>
-                Defense: {{ armorDef }}
+                Defense: {{ character.getArmor().getDef() }}
                 <br>
                 <br>
                 <a href="{{ path('character_inventory') }}" role="button">Inventory</a>
