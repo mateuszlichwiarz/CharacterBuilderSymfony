@@ -14,21 +14,22 @@ class ArmorEquipment extends AbstractEquipment
     public function __construct(
         private ArmorRepository $armorRepository,
         private CharacterRepository $characterRepository
-        )
-    {}
+        ){}
 
-    public function putOnByName($name)
+    public function putOnByName(string $name): object
     {
         $armor = $this->findEquipmentByName($name, $this->armorRepository);
         $armorId = $armor->getId();
-        $this->characterRepository->updateCharacter($armorId, 'armor');
+        //$this->characterRepository->updateArmorByName($armorId);
+        return $armor;
     }
 
-    public function putOnById($id)
+    public function putOnById(int $id): object
     {
         $armor = $this->findEquipmentById($id, $this->armorRepository);
-        $armorName = $armor->getName();
-        $this->characterRepository->updateCharacter($armorName, 'armor');
+        $armorId = $armor->getId();
+        //$this->characterRepository->updateArmorById($armorName);
+        return $armor;
     }
 
     public function getArmorById(int $id): string

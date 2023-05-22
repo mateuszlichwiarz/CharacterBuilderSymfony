@@ -14,23 +14,22 @@ class WeaponEquipment extends AbstractEquipment
     public function __construct(
         private WeaponRepository $weaponRepository,
         private CharacterRepository $characterRepository
-        )
-    {}
-
-    public function putOnByName($name)
+        ){}
+    
+    //do poprawy updateWeapon, absolutnie niepotrzebne name or id jeśli wcześniej to fetchujemy
+    public function putOnByName(string $name): object
     {
-        $armor = $this->findEquipmentById($name, $this->weaponRepository);
-        $armorId = $armor->getId();
-
-        $this->characterRepository->update($armorId, 'armor');
-
+        $weapon = $this->findEquipmentByName($name, $this->weaponRepository);
+        $weaponId = $weapon->getId();
+        //$this->characterRepository->updateWeaponById($weaponId);
+        return $weapon;
     }
     
-    public function putOnById($id)
+    public function putOnById(int $id): object
     {
         $weapon = $this->findEquipmentById($id, $this->weaponRepository);
-        $weaponId = $weapon->getId();
-        $this->characterRepository->updateCharacter($weaponId, 'weapon');
+        //$this->characterRepository->updateWeaponById($weaponId);
+        return $weapon;
     }
 
     public function getWeaponById(int $id): string
