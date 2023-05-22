@@ -2,84 +2,51 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Entity\Character;
-use App\Entity\Weapon;
-use App\Entity\Armor;
-
-use Doctrine\ORM\EntityManagerInterface;
-
-use App\Form\Character\CreateCharacterFormType;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Logic\Character\CharacterManager;
+use App\Form\Character\CreateCharacterFormType;
+use App\Service\Factory\CharacterFactory;
+
+use App\Entity\User;
+use App\Entity\Character;
+
+use App\Repository\UserRepository;
+use App\Repository\CharacterRepository;
 
 class CharacterController extends AbstractController
 {
+    public function __construct(
+        private CharacterFactory $characterFactory,
+        private CharacterRepository $characterRepository,
+        private UserRepository $userRepository,
+    ){}
 
     #[Route("/character", name: 'character_index')]
-    public function index(ManagerRegistry $doctrine, Request $request)
+    public function index(Request $request): Response
     {
-        
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
-        $playerCharacter = $user->getPlayerCharacter();
-
-        $strUpd = $request->query->get('str');
-        $spUpd  = $request->query->get('sp');
-
-        
-        if(empty($playerCharacter))
+        $character = $user->getPlayerCharacter();
+        if(is_null($character))
         {
-            
+            return $this->render('character/index.html.twig');
         }else
         {
-
-            $playerCharacter = $user->getPlayerCharacter();
-
-            $name = $playerCharacter->getName();
-            $lvl  = $playerCharacter->getLvl();
-            $exp  = $playerCharacter->getExp();
-            $str  = $playerCharacter->getStr();
-            $sp   = $playerCharacter->getSkillPoints();
-            
-            $weaponObject = $playerCharacter->getWeapon();
-            $armorObject  = $playerCharacter->getArmor();
-
-            $weaponName = $weaponObject->getName();
-            $weaponDmg  = $weaponObject->getDmg();
-            $weaponType = $weaponObject->getType();
-
-            $armorName = $armorObject->getName();
-            $armorDef  = $armorObject->getDef();
+            $character = $user->getPlayerCharacter();
 
             return $this->render('character/character.html.twig',[
-                'name' => $name,
-                'lvl'  => $lvl,
-                'exp'  => $exp,
-                'str'  => $str,
-                'sp'   => $sp,
-                'weaponName' => $weaponName,
-                'weaponDmg'  => $weaponDmg,
-                'weaponType' => $weaponType,
-                'armorName'  => $armorName,
-                'armorDef'   => $armorDef,
+                'character' => $character,
             ]);
         }
-
-        return $this->render('character/index.html.twig');
     }
 
     
     #[Route("/character/creator", name: 'character_creator')]
-    public function create(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request): Response
+    public function create(Request $request): Response
     {
-
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
 
@@ -89,76 +56,52 @@ class CharacterController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
-
-            $weapon = $entityManager->getRepository(Weapon::class)->find(1);
-            $armor  = $entityManager->getRepository(Armor::class)->find(1);
-
                 $character = $form->getData();
-                //$this->characterManager->create($character);
-                
-                $character = $form->getData();
-                $character->setLvl(1);
-                $character->setExp(1);
-                $character->setSkillPoints(5);
+                $this->characterFactory->create($character);
+
                 $user->setPlayerCharacter($character);
-                
-                $character->setWeapon($weapon);
-                $character->setArmor($armor);
-
-                $entityManager->persist($character, $user);
-                $entityManager->flush();
+                $this->userRepository->save($user, true);
                 
                 return $this->redirectToRoute('character_index');
         }
 
         return $this->render('character/create.html.twig', [
             'form' => $form->createView()
-            
         ]);
     }
 
     #[Route('/character/update_stats', name: 'character_update_stats')]
-    public function updateStats(Request $request, EntityManagerInterface $entityManager)
+    public function updateStats(Request $request): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
-        $playerCharacter = $user->getPlayerCharacter();
-        
-        $spDatabase = $playerCharacter->getSkillPoints();
-
+        $character = $user->getPlayerCharacter();
+        $spDatabase = $character->getSkillPoints();
         $strPost = $request->request->get('str');
         $spPost  = $request->request->get('sp');
-
         if(($spDatabase < $spPost) || ($spDatabase == $spPost) || $spDatabase == 0)
         {
-            $error_message = "Don't. Just DON'T.";
-            return new Response($error_message);
+            //error message osobno
+            //swietny pomysl do checkowania danych
+            return new Response("don't do that");
         }else
         {
-            $playerCharacter->setStr($strPost);
-            $playerCharacter->setSkillPoints($spPost);
-
-            $entityManager->persist($playerCharacter,$user);
-            $entityManager->flush();
+            $character
+                ->setStr($strPost)
+                ->setSkillPoints($spPost);
+            $this->characterRepository->save($character, true);
 
             return $this->redirectToRoute('character_index');
         }
-        
-        
-
-        //return $this->redirectToRoute('character_index');      
     }
 
     #[Route('/character/inventory', name: 'character_inventory')]
-    public function inventory(EntityManagerInterface $entityManager)
+    public function inventory(): Response
     {
         /*
         $characterControl = new CharacterControl($entityManager);
         
         $characterControl->update();
-        
-
-
         if($controlCharacter)
         {
             $inventory = $controlCharacter->getInventory();
@@ -167,14 +110,11 @@ class CharacterController extends AbstractController
         {
             return $this->render('foo/bar.html.twig');
         }
-        
 
         return $this->render('character/character.html.twig', [
             'inventory' => $inventory,
         ]);
-
         */
-
         return new Response('Inventory');
     }
 }
