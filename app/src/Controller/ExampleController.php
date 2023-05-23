@@ -33,12 +33,12 @@ class ExampleController extends AbstractController
         {
             $character = new Character();
             $character->setName('foo_bar')->setStr(10);
-            $this->characterFactory->create($character);
+            //$this->characterFactory->create($character);
 
-            return new Response('foo bar: saved '.$character->getId());
+            return new Response('foo bar: saved '.$character->getName());
         }else
         {
-            return new Response('foo bar '.$user->getEmail());
+            return new Response('foo bar '.$character->getName());
         }
     }
 }

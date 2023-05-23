@@ -19,16 +19,16 @@ class CharacterFactory extends AbstractFactory
     {
     }
 
-    public function create($character)
+    public function create($character): void
     {
         $character
-            ->setExp('0')
+            ->setExp('1')
             ->setLvl('1')
             ->setSkillPoints(10)
             ->setArmor($this->armorEquipment->PutOnByName('pantaloons'))
             ->setWeapon($this->weaponEquipment->PutOnByName('fists'));
 
-        return $this->characterRepository->save($character, true);
+        $this->characterRepository->save($character, true);
     }
 
     /*

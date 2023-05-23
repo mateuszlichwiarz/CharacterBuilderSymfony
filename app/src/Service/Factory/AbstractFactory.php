@@ -7,5 +7,5 @@ use Symfony\Repository\CharacterRepository;
 
 Abstract class AbstractFactory
 {
-    abstract public function create($character);
+    abstract public function create($character): void;
 }
