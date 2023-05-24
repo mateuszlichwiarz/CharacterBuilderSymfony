@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Service\Factory;
+namespace App\Service\Character\Factory;
 
 use App\Repository\CharacterRepository;
 
 use App\Service\Equipment\ArmorEquipment;
 use App\Service\Equipment\WeaponEquipment;
 
-use App\Service\Factory\AbstractFactory;
+use App\Service\Abstract\AbstractFactory;
 
 class CharacterFactory extends AbstractFactory
 {

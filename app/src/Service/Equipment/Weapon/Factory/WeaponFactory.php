@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\Factory\Equipment\Weapon;
+namespace App\Service\Equipment\Weapon\Factory;
 
-use App\Service\Factory\AbstractFactory;
+use App\Service\Abstract\AbstractFactory;
 
 class WeaponFactory extends AbstractFactory
 {

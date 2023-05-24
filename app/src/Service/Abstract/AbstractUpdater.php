@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Updater;
+namespace App\Service\Abstract;
 
-Abstract class AbstractUpdater
+abstract class AbstractUpdater
 {   abstract public function update(object $object): void;  }

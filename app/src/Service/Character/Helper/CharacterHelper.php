@@ -1,5 +1,6 @@
 <?php
-namespace App\Service\Helper;
+
+namespace App\Service\Character\Helper;
 
 class CharacterHelper
 {
@@ -8,7 +9,7 @@ class CharacterHelper
 
     }
 
-    public function securityCheck()
+    public function help()
     {
         
     }

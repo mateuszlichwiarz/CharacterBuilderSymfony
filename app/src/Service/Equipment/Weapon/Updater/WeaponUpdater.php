@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Service\Updater;
+namespace App\Service\Equipment\Weapon\Updater;
 
 use App\Repository\WeaponRepository;
-use App\Service\Updater\AbstractUpdater;
+use App\Service\Abstract\AbstractUpdater;
 
 class WeaponUpdater extends AbstractUpdater
 {
