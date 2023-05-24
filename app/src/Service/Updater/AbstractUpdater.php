@@ -3,6 +3,4 @@
 namespace App\Service\Updater;
 
 Abstract class AbstractUpdater
-{
-    abstract public function update();
-}
+{   abstract public function update(object $object): void;  }

@@ -19,7 +19,7 @@ class CharacterFactory extends AbstractFactory
     {
     }
 
-    public function create($character): void
+    public function create(object $character): void
     {
         $character
             ->setExp('1')
