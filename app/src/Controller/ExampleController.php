@@ -18,8 +18,7 @@ use App\Service\Factory\CharacterFactory;
 class ExampleController extends AbstractController
 {
     public function __construct(
-        private CharacterFactory $characterFactory,
-        //private CharacterRepository $characterRepository
+        private CharacterFactory $characterFactory
     ){}
 
     #[Route('/foo/bar')]

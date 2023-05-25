@@ -10,12 +10,12 @@ class CharacterUpdater extends AbstractUpdater
 {
     public function __construct(
         private CharacterRepository $characterRepository,
-        private CharacterHelper $characterHelper
-    ){}
+        private CharacterHelper $characterHelper)
+        {}
 
     public function update(object $character): void
     {
         $helper = $this->characterHelper->help($character);
-        $helper === true ? $this->characterRepository->update($character) : 'notworking';
+        $helper === null ? 'error' : $this->characterRepository->update($character);
     }
 }
