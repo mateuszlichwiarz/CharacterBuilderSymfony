@@ -1,4 +1,5 @@
 # CharacterBuilderSymfony
 
-Component Character builder to rpg game
+Component Character builder for rpg game
+
 work in progres
