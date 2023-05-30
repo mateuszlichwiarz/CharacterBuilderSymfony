@@ -1,33 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Service\Character\Factory;
 
-use App\Repository\CharacterRepository;
-use App\Service\Equipment\ArmorEquipment;
-use App\Service\Equipment\WeaponEquipment;
-use App\Service\Abstract\AbstractFactory;
+use App\Entity\Character;
+use App\Service\Character\Factory\CharacterFactoryInterface;
 
-class CharacterFactory extends AbstractFactory
+class CharacterFactory implements CharacterFactoryInterface
 {
-    public function __construct(
-        private CharacterRepository $characterRepository,
-        private ArmorEquipment $armorEquipment,
-        private WeaponEquipment $weaponEquipment
-        ){}
-
-    public function create(object $character): void
+    public function createCharacter(int $exp,int $lvl,int $skillPoints ): Character
     {
+        $character = new Character();
         $character
-            ->setExp('1')
-            ->setLvl('1')
-            ->setSkillPoints(10)
-            ->setArmor($this->armorEquipment->PutOnByName('pantaloons'))
-            ->setWeapon($this->weaponEquipment->PutOnByName('fists'));
-        $this->characterRepository->save($character, true);
+            ->setExp($exp)
+            ->setLvl($lvl)
+            ->setSkillPoints($skillPoints);
+        return $character;
     }
-
-    /*
-    static public function idGenerator(): int
-    { $id = rand(1, 1000000); return $id; }
-    */
 }
