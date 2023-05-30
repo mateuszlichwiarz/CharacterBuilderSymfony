@@ -13,9 +13,4 @@ class CharacterHelper
         $character->getId();
         return false;
     }
-
-    private function findCharacter()
-    {
-        
-    }
 }
