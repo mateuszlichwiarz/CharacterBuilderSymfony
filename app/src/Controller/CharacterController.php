@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Controller;
 
@@ -8,13 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Form\Character\CreateCharacterFormType;
-use App\Service\Factory\CharacterFactory;
+use App\Service\Character\Factory\CharacterFactory;
 
 use App\Entity\User;
 use App\Entity\Character;
 
 use App\Repository\UserRepository;
 use App\Repository\CharacterRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CharacterController extends AbstractController
 {
@@ -57,7 +58,9 @@ class CharacterController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
                 $character = $form->getData();
-                $this->characterFactory->create($character);
+
+                $character = $this->characterFactory->createCharacter(1, 1, 10);
+                $this->characterRepository->save($character);
 
                 $user->setPlayerCharacter($character);
                 $this->userRepository->save($user, true);
@@ -68,6 +71,10 @@ class CharacterController extends AbstractController
         return $this->render('character/create.html.twig', [
             'form' => $form->createView()
         ]);
+
+        return new JsonResponse([
+            'character' => $character
+            ] ,200);
     }
 
     #[Route('/character/update_stats', name: 'character_update_stats')]
