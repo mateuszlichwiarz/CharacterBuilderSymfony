@@ -13,12 +13,12 @@ use App\Repository\ArmorRepository;
 use App\Repository\WeaponRepository;
 use App\Repository\CharacterRepository;
 
-use App\Service\Factory\CharacterFactory;
+use App\Service\Character\Factory\CharacterBuilderFactory;
 
 class ExampleController extends AbstractController
 {
     public function __construct(
-        private CharacterFactory $characterFactory
+        private CharacterBuilderFactory $characterBuilderFactory,
     ){}
 
     #[Route('/foo/bar')]
@@ -30,11 +30,11 @@ class ExampleController extends AbstractController
         $character = $user->getPlayerCharacter();
         if(is_null($character))
         {
-            $character = new Character();
-            $character->setName('foo_bar')->setStr(10);
-            //$this->characterFactory->create($character);
+            //$character = new Character();
+            //$character->setName('foo_bar')->setStr(10);
+            $character = $this->characterBuilderFactory->createCharacter(1, 1, 10);
 
-            return new Response('foo bar: saved '.$character->getName());
+            return new Response('foo bar: saved '());
         }else
         {
             return new Response('foo bar '.$character->getName());
