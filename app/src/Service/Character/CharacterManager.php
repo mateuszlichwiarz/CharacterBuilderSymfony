@@ -18,7 +18,7 @@ class CharacterManager
         private Security $security,
     ){}
 
-    public function getCharacter(): object
+    public function getCharacter(): object|null
     {
         $character = $this->getUserCharacterId();
         return $character;
