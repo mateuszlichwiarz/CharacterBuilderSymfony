@@ -32,7 +32,7 @@ class ExampleController extends AbstractController
         {
             //$character = new Character();
             //$character->setName('foo_bar')->setStr(10);
-            $character = $this->characterBuilderFactory->createCharacter(1, 1, 10);
+            $character = $this->characterBuilderFactory->createBuilder(1, 1, 10);
 
             return new Response('foo bar: saved '());
         }else
