@@ -20,15 +20,14 @@ class CharacterManager
 
     public function getCharacter(): object
     {
-        $id = $this->getLoggedUserEmail();
-        $character = $this->userRepository->getCharacterByUserEmail($id);
+        $character = $this->getUserCharacterId();
         return $character;
     }
 
-    private function getLoggedUserEmail()
+    private function getUserCharacterId()
     {
         /** @var User $user */
         $user = $this->security->getUser();
-        return $user->getId();
+        return $user->getPlayerCharacter();
     }
 }
