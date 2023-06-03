@@ -12,11 +12,14 @@ use Psr\Log\LoggerInterface;
 
 class CharacterBuilderFactory implements CharacterBuilderFactoryInterface
 {
-    public function __construct(private LoggerInterface $logger){}
+    public function __construct(
+        private LoggerInterface $logger,
+        private CharacterBuilder $characterBuilder
+        ){}
 
     public function createBuilder(int $exp,int $lvl,int $skillPoints ): CharacterBuilder
     {
         
-        return new CharacterBuilder($this->logger);
+        return $this->characterBuilder;
     }
 }
