@@ -46,11 +46,9 @@ class CharacterController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
                 $character = $form->getData();
-                $character = $this->characterBuilderFactory->createBuilder(1, 1, 10);
-
-                return new JsonResponse([
-                    'character' => $character
-                    ] ,200);
+                $this->characterManager->createCharacter($character);
+                
+            return $this->redirectToRoute('character_show');
         }
 
         return $this->render('character/create.html.twig', [
@@ -78,7 +76,7 @@ class CharacterController extends AbstractController
                 ->setSkillPoints($spPost);
             $this->characterRepository->save($character, true);
 
-            return $this->redirectToRoute('character_index');
+            return $this->redirectToRoute('character_show');
         }
     }
 
