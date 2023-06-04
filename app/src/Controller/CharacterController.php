@@ -63,8 +63,8 @@ class CharacterController extends AbstractController
         $user = $this->getUser();
         $character = $user->getPlayerCharacter();
         $spDatabase = $character->getSkillPoints();
-        $strPost = $request->request->get('str');
-        $spPost  = $request->request->get('sp');
+        $strPost = intval($request->request->get('str'));
+        $spPost  = intval($request->request->get('sp'));
         if(($spDatabase < $spPost) || ($spDatabase == $spPost) || $spDatabase == 0) {
             //error message osobno
             //swietny pomysl do checkowania danych
