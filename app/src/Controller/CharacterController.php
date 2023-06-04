@@ -59,12 +59,8 @@ class CharacterController extends AbstractController
     #[Route('/character/update', name: 'character_update')]
     public function update(Request $request): Response
     {
-        /** @var \App\Entity\User $user */
-        $user = $this->getUser();
-        $character = $user->getPlayerCharacter();
-        $spDatabase = $character->getSkillPoints();
-        $strPost = intval($request->request->get('str'));
-        $spPost  = intval($request->request->get('sp'));
+        /*
+        $this->characterManager->updateCharacterAttributes($request);
         if(($spDatabase < $spPost) || ($spDatabase == $spPost) || $spDatabase == 0) {
             //error message osobno
             //swietny pomysl do checkowania danych
@@ -78,6 +74,8 @@ class CharacterController extends AbstractController
 
             return $this->redirectToRoute('character_show');
         }
+        */
+        return new Response('update');
     }
 
     #[Route('/character/inventory', name: 'character_inventory')]
