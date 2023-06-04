@@ -6,7 +6,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\UserRepository;
 
 use App\Entity\User;
-
+use App\Service\Character\Factory\CharacterBuilderFactory;
 use Symfony\Bundle\SecurityBundle\Security;
 
 
@@ -16,6 +16,7 @@ class CharacterManager
         private CharacterRepository $characterRepository,
         private UserRepository $userRepository,
         private Security $security,
+        private CharacterBuilderFactory $characterBuilderFactory
     ){}
 
     public function getCharacter(): object|null
@@ -29,5 +30,12 @@ class CharacterManager
         /** @var User $user */
         $user = $this->security->getUser();
         return $user->getPlayerCharacter();
+    }
+
+    private function getUserId()
+    {
+        /** @var User $user */
+        $user = $this->security->getUser();
+        return $user->getId();
     }
 }
