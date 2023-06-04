@@ -4,8 +4,8 @@ namespace App\Service\Character;
 
 use App\Repository\CharacterRepository;
 use App\Repository\UserRepository;
-
 use App\Entity\User;
+
 use App\Service\Character\Factory\CharacterBuilderFactory;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -23,6 +23,12 @@ class CharacterManager
     {
         $userId = $this->getUserId();
         $character = $this->characterBuilderFactory->createBuilder($character);
+        
+        $this->save($character, $userId);
+    }
+
+    private function save($character, $userId): void
+    {
         $this->characterRepository->save($character, true);
         $this->userRepository->saveUserCharacter($character, $userId);
     }
