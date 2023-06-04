@@ -12,16 +12,15 @@ use Psr\Log\LoggerInterface;
 class CharacterBuilder
 {
     public function __construct(
-        private LoggerInterface $logger,
+        //private LoggerInterface $logger,
         private ArmorRepository $armorRepository,
         private WeaponRepository $weaponRepository,
         ){}
 
-    public function buildCharacter(): Character
+    public function buildCharacter(object $character): character
     {
-        $this->logger->info('creating a character.');
+        //$this->logger->info('creating a character.');
         
-        $character = new Character();
         $character
             ->setName('warrior')
             ->setLvl(1)
