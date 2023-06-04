@@ -18,6 +18,14 @@ class CharacterManager
         private Security $security,
         private CharacterBuilderFactory $characterBuilderFactory
     ){}
+    
+    public function createCharacter(object $character): void
+    {
+        $userId = $this->getUserId();
+        $character = $this->characterBuilderFactory->createBuilder($character);
+        $this->characterRepository->save($character, true);
+        $this->userRepository->saveUserCharacter($character, $userId);
+    }
 
     public function getCharacter(): object|null
     {
