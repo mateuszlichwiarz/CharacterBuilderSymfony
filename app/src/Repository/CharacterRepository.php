@@ -39,6 +39,21 @@ class CharacterRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Notice: attributeName is string name of character attribute e.g. dex, str, int, skillPoints
+    **/
+    public function updateCharacterAttribute(int $attributeValue, string $attributeName, int $cId): void
+    {
+        $this->createQueryBuilder('c')
+             ->update()
+             ->set("c.$attributeName", ":$attributeName")
+             ->andWhere('c.id = :id')
+             ->setParameter('id', $cId)
+             ->setParameter("$attributeName", $attributeValue)
+             ->getQuery()
+             ->execute();
+    }
+
     public function findById(int $id): ?Character
     {
         return $this->createQueryBuilder('c')
