@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ComparatorTest extends TestCase
 {
-    public function testTrueResult(): void
+    public function testReturnTrueResult(): void
     {
         $repositoryStrength = 2;
         $requestStrength    = 1;
