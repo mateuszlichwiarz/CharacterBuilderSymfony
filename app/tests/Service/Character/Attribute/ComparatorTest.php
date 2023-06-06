@@ -9,10 +9,10 @@ final class ComparatorTest extends TestCase
 {
     public function testReturnTrueResult(): void
     {
-        $repositoryStrength = 2;
-        $requestStrength    = 1;
+        $repositoryAttribute = 2;
+        $requestAttribute    = 1;
 
-        $comparator = new Comparator($repositoryStrength, $requestStrength);
+        $comparator = new Comparator($repositoryAttribute, $requestAttribute);
         $result = $comparator->compareAttribute();
 
         $this->assertSame($result, true);
@@ -20,10 +20,10 @@ final class ComparatorTest extends TestCase
 
     public function testExceptionMessageEqualsArguments(): void
     {
-        $repositoryStrength = 1;
-        $requestStrength    = 1;
+        $repositoryAttribute = 1;
+        $requestAttribute    = 1;
 
-        $comparator = new Comparator($repositoryStrength, $requestStrength);
+        $comparator = new Comparator($repositoryAttribute, $requestAttribute);
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Nothing to change');
