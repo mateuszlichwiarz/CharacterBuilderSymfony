@@ -18,7 +18,7 @@ final class ComparatorTest extends TestCase
         $this->assertSame($result, true);
     }
 
-    public function testExceptionMessageFirstCompare(): void
+    public function testExceptionMessageEqualsArguments(): void
     {
         $repositoryStrength = 1;
         $requestStrength    = 1;
@@ -28,6 +28,6 @@ final class ComparatorTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Nothing to change');
 
-        $comparator->compareAttribute();
+        $result = $comparator->compareAttribute();
     }
 }
