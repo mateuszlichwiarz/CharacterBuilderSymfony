@@ -43,4 +43,17 @@ final class ComparatorTest extends TestCase
 
         $result = $comparator->compareAttribute();
     }
+
+    public function testExceptionMessageHigherThanExpectedWithType(): void
+    {
+        $repositoryAttribute = 1;
+        $requestAttribute    = 2;
+
+        $comparator = new Comparator($repositoryAttribute, $requestAttribute, 'strength');
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Strength value is higher than it should be');
+
+        $result = $comparator->compareAttribute();
+    }
 }
