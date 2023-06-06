@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Service\Character\Attribute\Comparator;
+
 use App\Service\Character\CharacterManager;
 use App\Service\Character\Factory\CharacterBuilderFactory;
 
@@ -15,6 +17,8 @@ use App\Form\Character\CreateCharacterFormType;
 
 use App\Entity\Character;
 use App\Repository\CharacterRepository;
+use App\Service\Character\Attribute\SkillPointComparator;
+use App\Service\Character\Attribute\AttributeComparator;
 
 class CharacterController extends AbstractController
 {
@@ -27,7 +31,7 @@ class CharacterController extends AbstractController
     #[Route("/character", name: 'character_show')]
     public function show(Request $request): Response
     {
-        $character = $this->characterManager->getCharacter();
+        $character = $this->characterManager->getUserCharacter();
         if(is_null($character)) {
             return $this->render('character/index.html.twig');
         }else {
@@ -59,6 +63,33 @@ class CharacterController extends AbstractController
     #[Route('/character/update', name: 'character_update')]
     public function update(Request $request): Response
     {
+
+        $requestStrength = intval($request->get('str'));
+        $requestSp       = intval($request->get('sp'));
+
+        $userCharacter = $this->characterManager->getUserCharacter();
+        $repositoryStrength = $userCharacter->getStr();
+        $repositorySp       = $userCharacter->getSkillPoints();
+
+        $comparatorStrength = new AttributeComparator($repositoryStrength, $requestStrength, 'strength');
+        $compareStrength    = $comparatorStrength->compare();
+        if($compareStrength == true)
+        {
+            $userCharacter->setStr($requestStrength);
+        }
+
+        $comparatorSp = new SkillPointComparator($repositorySp, $requestSp, 'skill points');
+        $compareSp    = $comparatorSp->compare();
+        if($compareSp == true)
+        {
+            
+            $userCharacter->setSkillPoints($requestSp);
+        }
+
+        $this->characterRepository->save($userCharacter, true);
+
+        return $this->redirectToRoute('character_show');
+        
         /*
         $this->characterManager->updateCharacterAttributes($request);
         if(($spDatabase < $spPost) || ($spDatabase == $spPost) || $spDatabase == 0) {
@@ -73,7 +104,6 @@ class CharacterController extends AbstractController
             $this->characterRepository->save($character, true);
 
             return $this->redirectToRoute('character_show');
-        }
         */
         return new Response('update');
     }
