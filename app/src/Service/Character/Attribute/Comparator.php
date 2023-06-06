@@ -16,13 +16,13 @@ class Comparator
         $requestValue    = $this->requestValue;
         $attributeType   = $this->attributeType;
 
-        if($requestValue == $repositoryValue) {
-
-            throw new \Exception('Nothing to change');
-
-        }elseif($repositoryValue == 0) {
+        if($repositoryValue <= 0) {
 
             throw new \Exception('No skill point available');
+
+        }elseif($requestValue == $repositoryValue) {
+
+            throw new \Exception('Nothing to change');
 
         }elseif($requestValue > $repositoryValue) {
             
