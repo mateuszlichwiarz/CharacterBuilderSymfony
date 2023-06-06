@@ -18,18 +18,18 @@ class Comparator
 
         if($requestValue == $repositoryValue) {
 
-            return new \Exception('nothing to change');
+            throw new \Exception('Nothing to change');
 
         }elseif($repositoryValue == 0) {
 
-            return new \Exception('No skill point available');
+            throw new \Exception('No skill point available');
 
         }elseif($requestValue > $repositoryValue) {
             
             if(is_null($attributeType)) {
-                return new \Exception('Attributes value is higher than it should be');
+                throw new \Exception('Attributes value is higher than it should be');
             }else {
-                return new \Exception(strtoupper($attributeType).' value is higher than it should be');
+                throw new \Exception(ucfirst($attributeType).' value is higher than it should be');
             }
 
         }elseif($requestValue < $repositoryValue
@@ -40,12 +40,10 @@ class Comparator
 
         }else {
 
-            return false;
+            throw new \Exception('Unknown error');
 
         }
 
     }
 
 }
-
-//$this->Comparator->compare($request, $character);
