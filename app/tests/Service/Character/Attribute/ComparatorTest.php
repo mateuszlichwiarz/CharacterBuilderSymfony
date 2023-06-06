@@ -30,4 +30,17 @@ final class ComparatorTest extends TestCase
 
         $result = $comparator->compareAttribute();
     }
+
+    public function testExceptionMessageHigherThanExpectedWithoutType(): void
+    {
+        $repositoryAttribute = 1;
+        $requestAttribute    = 2;
+
+        $comparator = new Comparator($repositoryAttribute, $requestAttribute);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Attributes value is higher than it should be');
+
+        $result = $comparator->compareAttribute();
+    }
 }
