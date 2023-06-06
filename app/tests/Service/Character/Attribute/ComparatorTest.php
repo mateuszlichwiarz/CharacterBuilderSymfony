@@ -31,6 +31,19 @@ final class ComparatorTest extends TestCase
         $result = $comparator->compareAttribute();
     }
 
+    public function testExceptionMessageNoSkillPointsAvailable()
+    {
+        $repositoryAttribute = 0;
+        $requestAttribute    = 1;
+
+        $comparator = new Comparator($repositoryAttribute, $requestAttribute);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('No skill point available');
+
+        $result = $comparator->compareAttribute();
+    }
+
     public function testExceptionMessageHigherThanExpectedWithoutType(): void
     {
         $repositoryAttribute = 1;
