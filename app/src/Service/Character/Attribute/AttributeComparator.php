@@ -2,7 +2,7 @@
 
 namespace App\Service\Character\Attribute;
 
-class Comparator
+class AttributeComparator
 {
     public function __construct(
         private int $repositoryValue,
@@ -10,7 +10,7 @@ class Comparator
         private string|null $attributeType = null,
         ){}
 
-    public function compareAttribute(): \Exception|bool
+    public function compare(): \Exception|bool
     {
         $repositoryValue = $this->repositoryValue;
         $requestValue    = $this->requestValue;
@@ -24,7 +24,7 @@ class Comparator
 
             throw new \Exception('Nothing to change');
 
-        }elseif($requestValue > $repositoryValue) {
+        }elseif($requestValue < $repositoryValue) {
             
             if(is_null($attributeType)) {
                 throw new \Exception('Attributes value is higher than it should be');
@@ -32,7 +32,7 @@ class Comparator
                 throw new \Exception(ucfirst($attributeType).' value is higher than it should be');
             }
 
-        }elseif($requestValue < $repositoryValue
+        }elseif($requestValue > $repositoryValue
                 && ($requestValue > 0)
                 && ($requestValue !== 0)) {
             
