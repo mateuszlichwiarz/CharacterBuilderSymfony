@@ -22,7 +22,6 @@ class CharacterBuilder
         //$this->logger->info('creating a character.');
         
         $character
-            ->setName('warrior')
             ->setLvl(1)
             ->setExp(1)
             ->setStr(10)
