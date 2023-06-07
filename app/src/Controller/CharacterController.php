@@ -62,13 +62,12 @@ class CharacterController extends AbstractController
 
     #[Route('/character/update', name: 'character_update')]
     public function update(Request $request): Response
-    {
-        
+    {   
         $userCharacter = $this->characterManager->getUserCharacter();
         $freePoints  = $userCharacter->getSkillPoints('sp');
 
         $requestStrength = intval($request->get('str'));
-        $repositoryStrength = 51;//$userCharacter->getStr();
+        $repositoryStrength = $userCharacter->getStr();
 
         if($freePoints > 0)
         {
