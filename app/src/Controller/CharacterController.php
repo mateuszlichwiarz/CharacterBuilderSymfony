@@ -68,7 +68,7 @@ class CharacterController extends AbstractController
         $freePoints  = $userCharacter->getSkillPoints('sp');
 
         $requestStrength = intval($request->get('str'));
-        $repositoryStrength = $userCharacter->getStr();
+        $repositoryStrength = 51;//$userCharacter->getStr();
 
         if($freePoints > 0)
         {
