@@ -54,20 +54,17 @@
     </head>
     <body>
         <div class="character">
-            Your character:
-            <br><br>
+            Your character: <br>
+            {{ character.name() }}
+            <br>
             ----------------------------
             <div class="info">
-                <br>
-                Name:         {{ character.name() }}
-                <br>
                 Level:        {{ character.lvl() }}   
                 <br>
                 Expirience:   {{ character.exp() }}    
                 <br>
-                Skill Points:
-                <div id="sp">{{ character.getSkillPoints() }}</div>
-                <br><br>
+                Skill Points: <div id="sp" style="display: inline-block;">{{ character.getSkillPoints() }}</div>
+                <br>
                 ----------------------------
             </div>
             <div class="stats">
