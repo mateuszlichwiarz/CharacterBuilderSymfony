@@ -7,6 +7,8 @@ use App\Service\Character\Attribute\Tools\AttributeDiffReturner;
 
 class AttributeValidator implements AttributeValidatorInterface
 {
+    public array $errors = [];
+
     public function __construct(private AttributeDiff $attributeDiff)
     {}
 
@@ -15,7 +17,7 @@ class AttributeValidator implements AttributeValidatorInterface
         int $attributeRequest,
         int $attributeRepository,
         
-    ): \Exception|ValidateObject
+    ): \Exception|bool
     {
         if($skillPoint <= 0){
 
@@ -26,19 +28,17 @@ class AttributeValidator implements AttributeValidatorInterface
             if($attributeRequest > $attributeRepository)
             {
                 $diff = $this->attributeDiff->getDiff($attributeRequest, $attributeRepository);
-                return new ValidateObject('diff' => $diff, 'type' => '0');
+                return true;
             }elseif($attributeRequest < $attributeRepository)
             {
                 $diff = $this->attributeDiff->getDiff($attributeRepository, $attributeRequest);
-                return new ValidateObject($diff, );
             }
 
         }
     }
 
-    
-    private function diff(int $attributeRequest,int $attributeRepository): int
+    public function addError(string $message): void
     {
-        return $attributeRequest -= $attributeRepository;
+        $this->errors[] = $message;
     }
 }
