@@ -4,5 +4,5 @@ namespace App\Service\Character\Attribute;
 
 interface AttributeValidatorInterface
 {
-    public function validate(int $freePoints, int $attributeRequest, int $attributeRepository): bool;
+    public function validate(int $freePoints, int $attributeRequest, int $attributeRepository): \Exception|bool;
 }
