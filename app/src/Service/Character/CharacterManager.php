@@ -5,6 +5,7 @@ namespace App\Service\Character;
 use App\Repository\CharacterRepository;
 use App\Repository\UserRepository;
 use App\Entity\User;
+use App\Entity\Character;
 
 use App\Service\Character\Factory\CharacterBuilderFactory;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -24,29 +25,41 @@ class CharacterManager
         $userId = $this->getUserId();
         $character = $this->characterBuilderFactory->createBuilder($character);
         
-        $this->save($character, $userId);
+        $this->saveUserCharacter($character, $userId);
     }
 
-    private function save($character, $userId): void
+    public function updateCharacterAttributes($request)
+    {
+        $str = intval($request->request->get('str'));
+        $sp  = intval($request->request->get('sp'));
+        $requestArray = $request->request->get();
+
+        //$characterAttributes = $this->getUserCharacter()->getAttributes();
+    }
+
+    private function saveUserCharacter($character, $userId): void
     {
         $this->characterRepository->save($character, true);
         $this->userRepository->saveUserCharacter($character, $userId);
     }
 
-    public function getCharacter(): object|null
+        //another save, its for class
+    /*
+    private function save()
     {
-        $character = $this->getUserCharacterId();
-        return $character;
+        $this->characterRepository->save($character, true);
+        $this->userRepository->saveUserCharacter($character, $userId);
     }
+    */
 
-    private function getUserCharacterId()
+    public function getUserCharacter(): character
     {
         /** @var User $user */
         $user = $this->security->getUser();
         return $user->getPlayerCharacter();
     }
 
-    private function getUserId()
+    private function getUserId(): int
     {
         /** @var User $user */
         $user = $this->security->getUser();
