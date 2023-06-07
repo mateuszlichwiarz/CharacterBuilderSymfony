@@ -63,14 +63,30 @@ class CharacterController extends AbstractController
     #[Route('/character/update', name: 'character_update')]
     public function update(Request $request): Response
     {
+        
+        $userCharacter = $this->characterManager->getUserCharacter();
+        $freePoints  = $userCharacter->getSkillPoints('sp');
 
         $requestStrength = intval($request->get('str'));
-        $requestSp       = intval($request->get('sp'));
-
-        $userCharacter = $this->characterManager->getUserCharacter();
         $repositoryStrength = $userCharacter->getStr();
-        $repositorySp       = $userCharacter->getSkillPoints();
 
+        if($freePoints > 0)
+        {
+            if($requestStrength > $repositoryStrength)
+            {
+                $diffStrength = $requestStrength - $repositoryStrength;
+                $freePoints -= $diffStrength;
+                
+                if($freePoints >=0)
+                {
+                    $userCharacter->setStr($requestStrength);
+                    $userCharacter->setSkillPoints($freePoints);
+                    $this->characterRepository->save($userCharacter, true);
+                }
+            }
+        }
+        return $this->redirectToRoute('character_show');
+        /*
         $comparatorStrength = new AttributeComparator($repositoryStrength, $requestStrength, 'strength');
         $compareStrength    = $comparatorStrength->compare();
         if($compareStrength == true)
