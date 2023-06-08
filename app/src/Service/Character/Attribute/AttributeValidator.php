@@ -21,7 +21,7 @@ class AttributeValidator implements AttributeValidatorInterface
     {
         if($skillPoint <= 0){
 
-            throw new \Exception("You don't have any skill point ");
+            $this->addError("You don't have any skill point");
 
         }elseif($skillPoint > 0) {
             
@@ -31,9 +31,12 @@ class AttributeValidator implements AttributeValidatorInterface
                 return true;
             }elseif($attributeRequest < $attributeRepository)
             {
-                $diff = $this->attributeDiff->getDiff($attributeRepository, $attributeRequest);
+                return false;
             }
 
+        }else{
+
+            $this->addError("Unknown error");
         }
     }
 
