@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Service\Character\Attribute;
+namespace App\Service\Character\Attribute\Tools;
 
 class AttributeDiff
 {
