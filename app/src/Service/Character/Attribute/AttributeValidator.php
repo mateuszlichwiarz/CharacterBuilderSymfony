@@ -3,7 +3,7 @@
 namespace App\Service\Character\Attribute;
 
 use App\Service\Character\Attribute\AttributeValidatorInterface;
-use App\Service\Character\Attribute\Tools\AttributeDiffReturner;
+use App\Service\Character\Attribute\Tools\AttributeDiff;
 
 class AttributeValidator implements AttributeValidatorInterface
 {
