@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
@@ -34,6 +36,14 @@ class Character
 
     #[ORM\ManyToOne]
     private ?Armor $armor = null;
+
+    #[ORM\OneToMany(mappedBy: 'playerCharacter', targetEntity: Tour::class)]
+    private Collection $tours;
+
+    public function __construct()
+    {
+        $this->tours = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +130,36 @@ class Character
     public function setArmor(?Armor $armor): self
     {
         $this->armor = $armor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tour>
+     */
+    public function getTours(): Collection
+    {
+        return $this->tours;
+    }
+
+    public function addTour(Tour $tour): self
+    {
+        if (!$this->tours->contains($tour)) {
+            $this->tours->add($tour);
+            $tour->setPlayerCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTour(Tour $tour): self
+    {
+        if ($this->tours->removeElement($tour)) {
+            // set the owning side to null (unless already changed)
+            if ($tour->getPlayerCharacter() === $this) {
+                $tour->setPlayerCharacter(null);
+            }
+        }
 
         return $this;
     }
