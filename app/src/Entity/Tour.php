@@ -22,10 +22,10 @@ class Tour
     private ?Quest $quest = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $start = null;
+    private ?\DateTimeImmutable $startDate = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $timeEnd = null;
+    private ?\DateTimeImmutable $finishDate = null;
 
     public function getId(): ?int
     {
@@ -56,26 +56,26 @@ class Tour
         return $this;
     }
 
-    public function getStart(): ?\DateTimeImmutable
+    public function getStartDate(): ?\DateTimeImmutable
     {
-        return $this->start;
+        return $this->startDate;
     }
 
-    public function setStart(\DateTimeImmutable $start): self
+    public function setStart(\DateTimeImmutable $startDate): self
     {
-        $this->start = $start;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
     public function getTimeEnd(): ?\DateTimeImmutable
     {
-        return $this->timeEnd;
+        return $this->finishDate;
     }
 
-    public function setTimeEnd(\DateTimeImmutable $timeEnd): self
+    public function setTimeEnd(\DateTimeImmutable $finishDate): self
     {
-        $this->timeEnd = $timeEnd;
+        $this->finishDate = $finishDate;
 
         return $this;
     }
