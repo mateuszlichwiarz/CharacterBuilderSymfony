@@ -41,7 +41,7 @@ class Character
     private Collection $tours;
 
     #[ORM\OneToMany(mappedBy: 'attacker', targetEntity: Combat::class)]
-    private Collection $combats;
+    private Collection $attacker;
 
     #[ORM\OneToMany(mappedBy: 'defender', targetEntity: Combat::class)]
     private Collection $defender;
@@ -52,7 +52,7 @@ class Character
     public function __construct()
     {
         $this->tours = new ArrayCollection();
-        $this->combats = new ArrayCollection();
+        $this->attacker = new ArrayCollection();
         $this->defender = new ArrayCollection();
         $this->winner = new ArrayCollection();
     }
@@ -179,27 +179,27 @@ class Character
     /**
      * @return Collection<int, Combat>
      */
-    public function getCombats(): Collection
+    public function getAttackerCombats(): Collection
     {
-        return $this->combats;
+        return $this->attacker;
     }
 
-    public function addCombat(Combat $combat): self
+    public function addAttackerCombat(Combat $attacker): self
     {
-        if (!$this->combats->contains($combat)) {
-            $this->combats->add($combat);
-            $combat->setAttacker($this);
+        if (!$this->attacker->contains($attacker)) {
+            $this->attacker->add($attacker);
+            $attacker->setAttacker($this);
         }
 
         return $this;
     }
 
-    public function removeCombat(Combat $combat): self
+    public function removeCombat(Combat $attacker): self
     {
-        if ($this->combats->removeElement($combat)) {
+        if ($this->attacker->removeElement($attacker)) {
             // set the owning side to null (unless already changed)
-            if ($combat->getAttacker() === $this) {
-                $combat->setAttacker(null);
+            if ($attacker->getAttacker() === $this) {
+                $attacker->setAttacker(null);
             }
         }
 
@@ -209,12 +209,12 @@ class Character
     /**
      * @return Collection<int, Combat>
      */
-    public function getDefender(): Collection
+    public function getDefenderCombats(): Collection
     {
         return $this->defender;
     }
 
-    public function addDefender(Combat $defender): self
+    public function addDefenderCombat(Combat $defender): self
     {
         if (!$this->defender->contains($defender)) {
             $this->defender->add($defender);
@@ -224,7 +224,7 @@ class Character
         return $this;
     }
 
-    public function removeDefender(Combat $defender): self
+    public function removeDefenderCombat(Combat $defender): self
     {
         if ($this->defender->removeElement($defender)) {
             // set the owning side to null (unless already changed)
@@ -239,12 +239,12 @@ class Character
     /**
      * @return Collection<int, Combat>
      */
-    public function getWinner(): Collection
+    public function getWinnerCombats(): Collection
     {
         return $this->winner;
     }
 
-    public function addWinner(Combat $winner): self
+    public function addWinnerCombat(Combat $winner): self
     {
         if (!$this->winner->contains($winner)) {
             $this->winner->add($winner);
@@ -254,7 +254,7 @@ class Character
         return $this;
     }
 
-    public function removeWinner(Combat $winner): self
+    public function removeWinnerCombat(Combat $winner): self
     {
         if ($this->winner->removeElement($winner)) {
             // set the owning side to null (unless already changed)
