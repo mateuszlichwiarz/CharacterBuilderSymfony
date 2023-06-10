@@ -64,7 +64,7 @@ class CharacterController extends AbstractController
     public function update(Request $request): Response
     {   
         $userCharacter = $this->characterManager->getUserCharacter();
-        $freePoints  = $userCharacter->getSkillPoints('sp');
+        $freePoints  = $userCharacter->getSkillPoints();
 
         $requestStrength = intval($request->get('str'));
         $repositoryStrength = $userCharacter->getStr();
