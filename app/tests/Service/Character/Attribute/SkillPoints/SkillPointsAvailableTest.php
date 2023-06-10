@@ -30,4 +30,15 @@ final class SkillPointsAvailableTest extends TestCase
         $this->assertFalse($result);
     }
 
+    public function testCheckAvailableIsFalseNegativeValue(): void
+    {
+        $character = new Character();
+        $character->setSkillPoints(-10);
+
+        $available = new SkillPointsAvailable();
+        $result = $available->checkAvailable($character);
+
+        $this->assertFalse($result);
+    }
+
 }
