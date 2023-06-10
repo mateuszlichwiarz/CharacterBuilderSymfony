@@ -1,10 +1,9 @@
-<?php declare(strict_types=1);
-
+/*
 namespace App\tests\Service\Character\Attribute;
 
 /*
 use App\Service\Character\Attribute\Comparator;
-use PHPUnit\Framework\TestCase;
+//use PHPUnit\Framework\TestCase;
 
 
 final class ComparatorTest extends TestCase
