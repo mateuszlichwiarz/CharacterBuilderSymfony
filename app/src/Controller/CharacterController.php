@@ -19,6 +19,8 @@ use App\Entity\Character;
 use App\Repository\CharacterRepository;
 use App\Service\Character\Attribute\SkillPointComparator;
 use App\Service\Character\Attribute\AttributeComparator;
+use App\Service\Character\Attribute\SkillPoints\SkillPointsCalculator;
+use App\Service\Character\Attribute\Tools\AttributeDiff;
 
 class CharacterController extends AbstractController
 {
@@ -61,21 +63,27 @@ class CharacterController extends AbstractController
     }
 
     #[Route('/character/update', name: 'character_update')]
-    public function update(Request $request): Response
+    public function update(
+        Request $request,
+        AttributeDiff $attributeDiff,
+        SkillPointsCalculator $skillPointsCalculator
+        ): Response
     {   
         $userCharacter = $this->characterManager->getUserCharacter();
-        $freePoints  = $userCharacter->getSkillPoints();
+        $skillPoints  = $userCharacter->getSkillPoints();
 
         $requestStrength = intval($request->get('str'));
         $repositoryStrength = $userCharacter->getStr();
 
-        if($freePoints > 0)
+        if($skillPoints > 0)
         {
             if($requestStrength > $repositoryStrength)
             {
                 $diffStrength = $requestStrength - $repositoryStrength;
-                $freePoints -= $diffStrength;
-                
+                $skillPoints -= $diffStrength;
+
+                $diffStrength = $attributeDiff->getDiff($requestStrength, $repositoryStrength);
+                $freePoints = $skillPointsCalculator->calculate($userCharacter, $diffStrength);
                 if($freePoints >=0)
                 {
                     $userCharacter->setStr($requestStrength);
