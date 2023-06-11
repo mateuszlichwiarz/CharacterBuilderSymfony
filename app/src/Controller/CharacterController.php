@@ -20,6 +20,7 @@ use App\Repository\CharacterRepository;
 use App\Service\Character\Attribute\SkillPointComparator;
 use App\Service\Character\Attribute\AttributeComparator;
 use App\Service\Character\Attribute\SkillPoints\SkillPointsCalculator;
+use App\Service\Character\Attribute\SkillPoints\SkillPointsAvailable;
 use App\Service\Character\Attribute\Tools\AttributeDiff;
 
 class CharacterController extends AbstractController
@@ -66,26 +67,23 @@ class CharacterController extends AbstractController
     public function update(
         Request $request,
         AttributeDiff $attributeDiff,
-        SkillPointsCalculator $skillPointsCalculator
+        SkillPointsCalculator $skillPointsCalculator,
+        SkillPointsAvailable $spAvailable,
         ): Response
     {   
         $userCharacter = $this->characterManager->getUserCharacter();
-        $skillPoints  = $userCharacter->getSkillPoints();
 
         $requestStrength = intval($request->get('str'));
         $repositoryStrength = $userCharacter->getStr();
 
-        if($skillPoints > 0)
-        {
-            if($requestStrength > $repositoryStrength)
-            {
-                $diffStrength = $requestStrength - $repositoryStrength;
-                $skillPoints -= $diffStrength;
+        if($spAvailable->checkAvailable($userCharacter) === true) {
+
+            if($requestStrength > $repositoryStrength) {
 
                 $diffStrength = $attributeDiff->getDiff($requestStrength, $repositoryStrength);
                 $freePoints = $skillPointsCalculator->calculate($userCharacter, $diffStrength);
-                if($freePoints >=0)
-                {
+
+                if($freePoints >=0) {
                     $userCharacter->setStr($requestStrength);
                     $userCharacter->setSkillPoints($freePoints);
                     $this->characterRepository->save($userCharacter, true);
@@ -112,21 +110,6 @@ class CharacterController extends AbstractController
         $this->characterRepository->save($userCharacter, true);
 
         return $this->redirectToRoute('character_show');
-        
-        /*
-        $this->characterManager->updateCharacterAttributes($request);
-        if(($spDatabase < $spPost) || ($spDatabase == $spPost) || $spDatabase == 0) {
-            //error message osobno
-            //swietny pomysl do checkowania danych
-            return new Response("don't do that");
-        }else
-        {
-            $character
-                ->setStr($strPost)
-                ->setSkillPoints($spPost);
-            $this->characterRepository->save($character, true);
-
-            return $this->redirectToRoute('character_show');
         */
         return new Response('update');
     }
