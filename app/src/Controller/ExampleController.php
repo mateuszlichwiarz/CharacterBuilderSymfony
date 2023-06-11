@@ -38,8 +38,6 @@ class ExampleController extends AbstractController
             return new Response('foo bar: saved ');
         }else
         {
-            $this->characterRepository->updateCharacterAttribute(50, 'str', $character->getId());
-            $this->characterRepository->updateCharacterAttribute(2, 'skillPoints', $character->getId());
             return new Response('foo bar '.$character->getName());
         }
     }
