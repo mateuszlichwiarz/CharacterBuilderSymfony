@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use App\Service\Character\Attribute\SkillPoints\SkillPointsCalculator;
 use App\Entity\Character;
 
-final class SkillPointsCalculatorTest extends TestCase
+final class SkillPointsDiffTest extends TestCase
 {
     public function test(): void
     {
