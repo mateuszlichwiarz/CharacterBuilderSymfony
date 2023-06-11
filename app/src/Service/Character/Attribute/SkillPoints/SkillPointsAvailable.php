@@ -4,7 +4,7 @@ namespace App\Service\Character\Attribute\SkillPoints;
 
 use App\Entity\Character;
 
-use App\Service\Character\Attribute\SkillPoints\AttributeAvailableInterface;
+use App\Service\Character\Attribute\Interface\AttributeAvailableInterface;
 
 class SkillPointsAvailable implements AttributeAvailableInterface
 {
