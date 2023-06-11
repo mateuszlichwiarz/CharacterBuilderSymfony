@@ -16,7 +16,6 @@ class AttributeValidator implements AttributeValidatorInterface
         int $skillPoint,
         int $attributeRequest,
         int $attributeRepository,
-        
     ): \Exception|bool
     {
         if($skillPoint <= 0){
