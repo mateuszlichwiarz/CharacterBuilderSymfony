@@ -19,9 +19,10 @@ use App\Entity\Character;
 use App\Repository\CharacterRepository;
 use App\Service\Character\Attribute\SkillPointComparator;
 use App\Service\Character\Attribute\AttributeComparator;
-use App\Service\Character\Attribute\SkillPoints\SkillPointsCalculator;
 use App\Service\Character\Attribute\SkillPoints\SkillPointsAvailable;
+use App\Service\Character\Attribute\SkillPoints\SkillPointsDiff;
 use App\Service\Character\Attribute\Strength\StrengthDiff;
+use App\Service\Character\Attribute\Strength\StrengthValidator;
 
 class CharacterController extends AbstractController
 {
@@ -67,7 +68,7 @@ class CharacterController extends AbstractController
     public function update(
         Request $request,
         StrengthDiff $strengthDiff,
-        SkillPointsCalculator $skillPointsCalculator,
+        SkillPointsDiff $skillPointsDiff,
         SkillPointsAvailable $spAvailable,
         StrengthValidator $strValidator,
         ): Response
@@ -76,10 +77,10 @@ class CharacterController extends AbstractController
         $requestStrength = intval($request->get('str'));
 
         if($spAvailable->checkAvailable($character) === true &&
-           $strValidator->getValid($character, $request) == true) {
+           $strValidator->getValid($character, $requestStrength) == true) {
 
             $diffStrength = $strengthDiff->getDiff($character, $requestStrength);
-            $freePoints = $skillPointsCalculator->calculate($character, $diffStrength);
+            $freePoints = $skillPointsDiff->getDiff($character, $diffStrength);
             if($freePoints >= 0) {
                 $character->setStr($requestStrength);
                 $character->setSkillPoints($freePoints);
