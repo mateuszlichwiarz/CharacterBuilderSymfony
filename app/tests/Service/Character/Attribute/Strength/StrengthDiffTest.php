@@ -8,7 +8,7 @@ use App\Entity\Character;
 
 final class StrengthDiffTest extends TestCase
 {
-    public function testDiffResultZero(): void
+    public function testDiffResultZeroValue(): void
     {
         $character = new Character();
         $character->setStr(10);
