@@ -3,8 +3,9 @@
 namespace App\Service\Character\Attribute\Strength;
 
 use App\Entity\Character;
+use App\Service\Character\Attribute\Interface\AttributeValidatorInterface;
 
-class StrengthValidator
+class StrengthValidator implements AttributeValidatorInterface
 {   
     public function getValid(Character $character, int $inputValue): bool
     {
