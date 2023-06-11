@@ -30,5 +30,17 @@ final class StrengthValidatorTest extends TestCase
         $result = $strValidator->getValid($character, $inputValue); 
 
         $this->assertFalse($result);
+    }
+
+    public function testGetValidIsEqualBool(): void
+    {
+        $character = new Character();
+        $character->setStr(10);
+        $inputValue = intval('10');
+
+        $strValidator = new StrengthValidator();
+        $result = $strValidator->getValid($character, $inputValue); 
+
+        $this->assertFalse($result);
     }    
 }
