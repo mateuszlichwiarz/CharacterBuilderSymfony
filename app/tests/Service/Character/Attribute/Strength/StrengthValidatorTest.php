@@ -8,7 +8,7 @@ use App\Entity\Character;
 
 final class StrengthValidatorTest extends TestCase
 {
-    public function testGetValidIsGreaterThan(): void
+    public function testGetValidIsGreaterThanBool(): void
     {
         $character = new Character();
         $character->setStr(10);
@@ -20,7 +20,7 @@ final class StrengthValidatorTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testGetValidIsLessThan(): void
+    public function testGetValidIsLessThanBool(): void
     {
         $character = new Character();
         $character->setStr(10);
