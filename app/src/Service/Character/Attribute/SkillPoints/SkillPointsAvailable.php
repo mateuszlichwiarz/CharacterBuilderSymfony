@@ -10,6 +10,6 @@ class SkillPointsAvailable implements AttributeAvailableInterface
 {
     public function checkAvailable(Character $character): bool
     {
-        return true ? $character->getSkillPoints() > 0 : false;
+        return $character->getSkillPoints() > 0 ? true : false;
     }
 }
