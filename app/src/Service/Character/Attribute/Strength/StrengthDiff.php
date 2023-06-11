@@ -3,10 +3,11 @@
 namespace App\Service\Character\Attribute\Strength;
 
 use App\Entity\Character;
+use App\Service\Character\Attribute\Interface\AttributeDiffInterface;
 
-class StrengthDiff
+class StrengthDiff implements AttributeDiffInterface
 {
-    static public function getDiff(Character $character, int $inputValue): int
+    public function getDiff(Character $character, int $inputValue): int
     {
         return $inputValue - $character->getStr();
     }
