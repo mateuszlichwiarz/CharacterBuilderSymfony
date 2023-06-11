@@ -8,8 +8,15 @@ use App\Entity\Character;
 
 final class StrengthValidatorTest extends TestCase
 {
-    public function test(): void
+    public function testGetValidIsGreaterThan(): void
     {
-        $this->assertTrue(true);
+        $character = new Character();
+        $character->setStr(10);
+        $inputValue = intval('15');
+
+        $strValidator = new StrengthValidator();
+        $result = $strValidator->getValid($character, $inputValue); 
+
+        $this->assertTrue($result);
     }
 }
