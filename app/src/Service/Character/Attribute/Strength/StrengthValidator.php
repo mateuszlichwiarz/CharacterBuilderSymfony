@@ -11,13 +11,13 @@ class StrengthValidator implements AttributeValidatorInterface
     {
         if($inputValue > $character->getStr()) {
             return true;
+        }elseif($inputValue == 0) {
+            //errorLogger
+            return false;
         }elseif($inputValue < $character->getStr()) {
             //errorLogger
             return false;
         }elseif($inputValue == $character->getStr()) {
-            //errorLogger
-            return false;
-        }elseif($inputValue == 0) {
             //errorLogger
             return false;
         }else {
