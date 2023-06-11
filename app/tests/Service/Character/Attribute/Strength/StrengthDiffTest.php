@@ -31,4 +31,16 @@ final class StrengthDiffTest extends TestCase
 
         $this->assertEquals($result, 5);
     }
+
+    public function testDiffResultNegativeValue(): void
+    {
+        $character = new Character();
+        $character->setStr(10);
+        $inputValue = intval('5');
+
+        $strDiff = new StrengthDiff();
+        $result = $strDiff->getDiff($character, $inputValue);
+
+        $this->assertEquals($result, -5);
+    }
 }
