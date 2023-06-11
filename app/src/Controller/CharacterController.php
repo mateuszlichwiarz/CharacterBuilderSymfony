@@ -72,19 +72,19 @@ class CharacterController extends AbstractController
         StrengthValidator $strValidator,
         ): Response
     {   
-        $userCharacter = $this->characterManager->getUserCharacter();
+        $character = $this->characterManager->getUserCharacter();
 
         $requestStrength = intval($request->get('str'));
 
-        if($spAvailable->checkAvailable($userCharacter) === true &&
-           $strValidator->getValid($character, $request)) {
+        if($spAvailable->checkAvailable($character) === true &&
+           $strValidator->getValid($character, $request) == true) {
 
             $diffStrength = $attributeDiff->getDiff($requestStrength, $repositoryStrength);
-
-            if($freePoints = $skillPointsCalculator->calculate($userCharacter, $diffStrength) >=0) {
-                $userCharacter->setStr($requestStrength);
-                $userCharacter->setSkillPoints($freePoints);
-                $this->characterRepository->save($userCharacter, true);
+            $freePoints = $skillPointsCalculator->calculate($character, $diffStrength);
+            if($freePoints >= 0) {
+                $character->setStr($requestStrength);
+                $character->setSkillPoints($freePoints);
+                $this->characterRepository->save($character, true);
             }
         }
         return $this->redirectToRoute('character_show');
