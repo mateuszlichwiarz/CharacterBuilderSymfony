@@ -88,27 +88,6 @@ class CharacterController extends AbstractController
             }
         }
         return $this->redirectToRoute('character_show');
-        /*
-        $comparatorStrength = new AttributeComparator($repositoryStrength, $requestStrength, 'strength');
-        $compareStrength    = $comparatorStrength->compare();
-        if($compareStrength == true)
-        {
-            $userCharacter->setStr($requestStrength);
-        }
-
-        $comparatorSp = new SkillPointComparator($repositorySp, $requestSp, 'skill points');
-        $compareSp    = $comparatorSp->compare();
-        if($compareSp == true)
-        {
-            
-            $userCharacter->setSkillPoints($requestSp);
-        }
-
-        $this->characterRepository->save($userCharacter, true);
-
-        return $this->redirectToRoute('character_show');
-        */
-        return new Response('update');
     }
 
     #[Route('/character/inventory', name: 'character_inventory')]
