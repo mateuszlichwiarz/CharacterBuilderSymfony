@@ -19,4 +19,16 @@ final class StrengthValidatorTest extends TestCase
 
         $this->assertTrue($result);
     }
+
+    public function testGetValidIsLessThan(): void
+    {
+        $character = new Character();
+        $character->setStr(10);
+        $inputValue = intval('5');
+
+        $strValidator = new StrengthValidator();
+        $result = $strValidator->getValid($character, $inputValue); 
+
+        $this->assertFalse($result);
+    }    
 }
