@@ -8,8 +8,15 @@ use App\Entity\Character;
 
 final class StrengthDiffTest extends TestCase
 {
-    public function test(): void
+    public function testDiffResultZero(): void
     {
-        $this->assertTrue(true);
+        $character = new Character();
+        $character->setStr(10);
+        $inputValue = intval('10');
+
+        $strDiff = new StrengthDiff();
+        $result = $strDiff->getDiff($character, $inputValue);
+
+        $this->assertEquals($result, 0);
     }
 }
