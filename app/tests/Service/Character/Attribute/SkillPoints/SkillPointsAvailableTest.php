@@ -14,7 +14,7 @@ final class SkillPointsAvailableTest extends TestCase
         $character->setSkillPoints(10);
 
         $available = new SkillPointsAvailable();
-        $result = $available->checkAvailable($character);
+        $result = $available->isAvailable($character);
 
         $this->assertTrue($result);
     }
@@ -25,7 +25,7 @@ final class SkillPointsAvailableTest extends TestCase
         $character->setSkillPoints(0);
 
         $available = new SkillPointsAvailable();
-        $result = $available->checkAvailable($character);
+        $result = $available->isAvailable($character);
 
         $this->assertFalse($result);
     }
@@ -36,7 +36,7 @@ final class SkillPointsAvailableTest extends TestCase
         $character->setSkillPoints(-10);
 
         $available = new SkillPointsAvailable();
-        $result = $available->checkAvailable($character);
+        $result = $available->isAvailable($character);
 
         $this->assertFalse($result);
     }
