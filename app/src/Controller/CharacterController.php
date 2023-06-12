@@ -76,7 +76,7 @@ class CharacterController extends AbstractController
         $character = $this->characterManager->getUserCharacter();
         $requestStrength = intval($request->get('str'));
 
-        if($spAvailable->checkAvailable($character) === true &&
+        if($spAvailable->isAvailable($character) === true &&
            $strValidator->getValid($character, $requestStrength) == true) {
 
             $diffStrength = $strengthDiff->getDiff($character, $requestStrength);
