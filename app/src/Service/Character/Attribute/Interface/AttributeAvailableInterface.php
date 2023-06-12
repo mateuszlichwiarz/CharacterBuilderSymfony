@@ -6,5 +6,5 @@ use App\Entity\Character;
 
 interface AttributeAvailableInterface
 {
-    public function checkAvailable(Character $character): bool;
+    public function isAvailable(Character $character): bool;
 }

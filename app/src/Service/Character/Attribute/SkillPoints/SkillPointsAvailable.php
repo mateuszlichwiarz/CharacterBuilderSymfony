@@ -8,7 +8,7 @@ use App\Service\Character\Attribute\Interface\AttributeAvailableInterface;
 
 class SkillPointsAvailable implements AttributeAvailableInterface
 {
-    public function checkAvailable(Character $character): bool
+    public function isAvailable(Character $character): bool
     {
         return $character->getSkillPoints() > 0 ? true : false;
     }
