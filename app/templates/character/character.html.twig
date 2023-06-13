@@ -12,11 +12,11 @@
                 var wis = document.getElementById('wis').innerHTML;
 
                 var form = 
-                '<form action="{{ path("character_update") }}" method="POST">'+
-                '<input type="hidden" name="dex" value="'+dex+'"/>'+
-                '<input type="hidden" name="str" value="'+str+'"/>'+
-                '<input type="hidden" name="dex" value="'+wis+'"/>'+
-                '<input type="submit" value="enter"/></form>'
+                    '<form action="{{ path("character_update") }}" method="POST">'+
+                    '<input type="hidden" name="dex" value="'+dex+'"/>'+
+                    '<input type="hidden" name="str" value="'+str+'"/>'+
+                    '<input type="hidden" name="dex" value="'+wis+'"/>'+
+                    '<input type="submit" value="enter"/></form>'
                 ;
                 return form;
             }
@@ -83,7 +83,7 @@
                 }else
                 {
                     //var path = {{ path('character_update') }};
-                    var form = '<form action="{{ path("character_update") }}" method="POST"><input type="hidden" name="sp" value="'+sp+'"/><input type="hidden" name="str" value="'+str+'"/><input type="submit" value="enter"/></form>';
+                    var form = createForm();
                     document.getElementById('form').innerHTML = form;
                     document.getElementById('str_decrease').innerHTML= '<button onclick="changeStrAttr'+"('sub');"+'" type="button"> - </button>';
                 }
@@ -119,9 +119,10 @@
                 }else
                 {
                     //var path = {{ path('character_update') }};
-                    var form = '<form action="{{ path("character_update") }}" method="POST"><input type="hidden" name="sp" value="'+sp+'"/><input type="hidden" name="wis" value="'+wis+'"/><input type="submit" value="enter"/></form>';
+                    var form = createForm();
                     document.getElementById('form').innerHTML = form;
-                    document.getElementById('wis_decrease').innerHTML= '<button onclick="changeSWisAttr'+"('sub');"+'" type="button"> - </button>';
+                    document.getElementById('wis_decrease').innerHTML =
+                        '<button onclick="changeWisAttr'+"('sub');"+'" type="button"> - </button>';
                 }
             }
 
