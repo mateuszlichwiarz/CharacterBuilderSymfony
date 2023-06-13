@@ -49,6 +49,12 @@ class Character
     #[ORM\OneToMany(mappedBy: 'winner', targetEntity: Combat::class)]
     private Collection $winner;
 
+    #[ORM\Column]
+    private ?int $Dex = null;
+
+    #[ORM\Column]
+    private ?int $wis = null;
+
     public function __construct()
     {
         $this->tours = new ArrayCollection();
@@ -106,6 +112,30 @@ class Character
     public function setStr(int $str): self
     {
         $this->str = $str;
+
+        return $this;
+    }
+
+    public function getDex(): ?int
+    {
+        return $this->Dex;
+    }
+
+    public function setDex(int $Dex): self
+    {
+        $this->Dex = $Dex;
+
+        return $this;
+    }
+
+    public function getWis(): ?int
+    {
+        return $this->wis;
+    }
+
+    public function setWis(int $wis): self
+    {
+        $this->wis = $wis;
 
         return $this;
     }
