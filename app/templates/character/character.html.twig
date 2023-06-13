@@ -59,6 +59,8 @@
             <br>
             ----------------------------
             <div class="info">
+                Hp:           {{ character.hp() }}
+                <br>
                 Level:        {{ character.lvl() }}   
                 <br>
                 Expirience:   {{ character.exp() }}    
@@ -73,6 +75,22 @@
                 <br>
                 Strength:
                     <div id="str">{{ character.getStr() }}</div>
+                        <div id="str_increase">
+                            <button onclick="changeStats('add');" type="button"> + </button>
+                        </div>
+                        <div id="str_decrease">
+                            <button onclick="changeStats('sub');" type="button"> - </button>
+                        </div>
+                Dexterity:
+                    <div id="dex">{{ character.getDex() }}</div>
+                        <div id="str_increase" style="display: inline-block;">
+                            <button onclick="changeStats('add');" type="button"> + </button>
+                        </div>
+                        <div id="str_decrease">
+                            <button onclick="changeStats('sub');" type="button" style="display: inline-block;"> - </button>
+                        </div>
+                Wisdom:
+                    <div id="wis">{{ character.getWis() }}</div>
                         <div id="str_increase">
                             <button onclick="changeStats('add');" type="button"> + </button>
                         </div>
