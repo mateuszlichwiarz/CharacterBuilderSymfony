@@ -35,7 +35,7 @@
                     //var path = {{ path('character_update') }};
                     var form = '<form action="{{ path("character_update") }}" method="POST"><input type="hidden" name="sp" value="'+sp+'"/><input type="hidden" name="dex" value="'+dex+'"/><input type="submit" value="enter"/></form>';
                     document.getElementById('form').innerHTML = form;
-                    document.getElementById('dex_decrease').innerHTML= '<button onclick="changeStatsDex'+"('sub');"+'" type="button"> - </button>';
+                    document.getElementById('dex_decrease').innerHTML= '<button onclick="changeDexAttr'+"('sub');"+'" type="button"> - </button>';
                 }
             }
 
@@ -72,7 +72,44 @@
                     //var path = {{ path('character_update') }};
                     var form = '<form action="{{ path("character_update") }}" method="POST"><input type="hidden" name="sp" value="'+sp+'"/><input type="hidden" name="str" value="'+str+'"/><input type="submit" value="enter"/></form>';
                     document.getElementById('form').innerHTML = form;
-                    document.getElementById('str_decrease').innerHTML= '<button onclick="changeStatsStr'+"('sub');"+'" type="button"> - </button>';
+                    document.getElementById('str_decrease').innerHTML= '<button onclick="changeStrAttr'+"('sub');"+'" type="button"> - </button>';
+                }
+            }
+
+            function changeWisAttr(operation)
+            {
+                var marker;
+                var sp  = document.getElementById('sp').innerHTML;
+                var wis = document.getElementById('wis').innerHTML;
+                
+                if(operation == 'add')
+                {
+                    if(sp > 0)
+                    {
+                        sp--;
+                        wis++;
+                    }
+
+                }else if(operation == 'sub' && sp < {{ character.getSkillPoints() }} && wis > {{ character.getWis() }})
+                {
+                    sp++;
+                    wis--;
+                }
+
+                document.getElementById('sp').innerHTML = sp;
+                document.getElementById('wis').innerHTML = wis;
+
+                if(sp == {{ character.getSkillPoints() }})
+                {
+                    var form = '';
+                    document.getElementById('form').innerHTML = form;
+                    document.getElementById('wis_decrease').innerHTML= '';
+                }else
+                {
+                    //var path = {{ path('character_update') }};
+                    var form = '<form action="{{ path("character_update") }}" method="POST"><input type="hidden" name="sp" value="'+sp+'"/><input type="hidden" name="wis" value="'+wis+'"/><input type="submit" value="enter"/></form>';
+                    document.getElementById('form').innerHTML = form;
+                    document.getElementById('wis_decrease').innerHTML= '<button onclick="changeSWisAttr'+"('sub');"+'" type="button"> - </button>';
                 }
             }
 
@@ -103,26 +140,26 @@
                 Strength:
                     <div id="str">{{ character.getStr() }}</div>
                         <div id="str_increase">
-                            <button onclick="changeStatsStr('add', 'str');" type="button"> + </button>
+                            <button onclick="changeStrAttr('add');" type="button"> + </button>
                         </div>
                         <div id="str_decrease">
-                            <button onclick="changeStatsStr('sub', 'str');" type="button"> - </button>
+                            <button onclick="changeStrAttr('sub');" type="button"> - </button>
                         </div>
                 Dexterity:
                     <div id="dex">{{ character.getDex() }}</div>
                         <div id="dex_increase" style="display: inline-block;">
-                            <button onclick="changeStatsDex('add');" type="button"> + </button>
+                            <button onclick="changeDexAttr('add');" type="button"> + </button>
                         </div>
                         <div id="dex_decrease">
-                            <button onclick="changeStatsDex('sub');" type="button" style="display: inline-block;"> - </button>
+                            <button onclick="changeDexAttr('sub');" type="button" style="display: inline-block;"> - </button>
                         </div>
                 Wisdom:
                     <div id="wis">{{ character.getWis() }}</div>
-                        <div id="str_increase">
-                            <button onclick="changeStatsStr('add');" type="button"> + </button>
+                        <div id="wis_increase">
+                            <button onclick="changeWisAttr('add');" type="button"> + </button>
                         </div>
-                        <div id="str_decrease">
-                            <button onclick="changeStatsStr('sub');" type="button"> - </button>
+                        <div id="wis_decrease">
+                            <button onclick="changeWisAttr('sub');" type="button"> - </button>
                         </div>
                     <div id="form">
                     </div>
