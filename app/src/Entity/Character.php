@@ -29,6 +29,15 @@ class Character
     private ?int $str = null;
 
     #[ORM\Column]
+    private ?int $dex = null;
+
+    #[ORM\Column]
+    private ?int $wis = null;
+
+    #[ORM\Column]
+    private ?int $hp = null;
+
+    #[ORM\Column]
     private ?int $skillPoints = null;
 
     #[ORM\ManyToOne]
@@ -48,12 +57,6 @@ class Character
 
     #[ORM\OneToMany(mappedBy: 'winner', targetEntity: Combat::class)]
     private Collection $winner;
-
-    #[ORM\Column]
-    private ?int $Dex = null;
-
-    #[ORM\Column]
-    private ?int $wis = null;
 
     public function __construct()
     {
@@ -76,6 +79,18 @@ class Character
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getHp(): ?int
+    {
+        return $this->hp;
+    }
+
+    public function setHp(int $hp): self
+    {
+        $this->hp = $hp;
 
         return $this;
     }
@@ -118,12 +133,12 @@ class Character
 
     public function getDex(): ?int
     {
-        return $this->Dex;
+        return $this->dex;
     }
 
-    public function setDex(int $Dex): self
+    public function setDex(int $dex): self
     {
-        $this->Dex = $Dex;
+        $this->dex = $dex;
 
         return $this;
     }
