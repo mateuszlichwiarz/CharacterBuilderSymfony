@@ -49,7 +49,8 @@
                     //var path = {{ path('character_update') }};
                     var form = createForm();
                     document.getElementById('form').innerHTML = form;
-                    document.getElementById('dex_decrease').innerHTML= '<button onclick="changeDexAttr'+"('sub');"+'" type="button"> - </button>';
+                    document.getElementById('dex_decrease').innerHTML =
+                        '<button onclick="changeDexAttr'+"('sub');"+'" type="button"> - </button>';
                 }
             }
 
@@ -85,7 +86,8 @@
                     //var path = {{ path('character_update') }};
                     var form = createForm();
                     document.getElementById('form').innerHTML = form;
-                    document.getElementById('str_decrease').innerHTML= '<button onclick="changeStrAttr'+"('sub');"+'" type="button"> - </button>';
+                    document.getElementById('str_decrease').innerHTML = 
+                        '<button onclick="changeStrAttr'+"('sub');"+'" type="button"> - </button>';
                 }
             }
 
@@ -152,24 +154,26 @@
                 <br>
                 Strength:
                     <div id="str">{{ character.getStr() }}</div>
-                        <div id="str_increase">
+                        <div id="str_increase" style="display: inline-block;">
                             <button onclick="changeStrAttr('add');" type="button"> + </button>
                         </div>
-                        <div id="str_decrease">
+                        <div id="str_decrease" style="display: inline-block;">
                         </div>
+                <br>
                 Dexterity:
                     <div id="dex">{{ character.getDex() }}</div>
                         <div id="dex_increase" style="display: inline-block;">
                             <button onclick="changeDexAttr('add');" type="button"> + </button>
                         </div>
-                        <div id="dex_decrease">
+                        <div id="dex_decrease" style="display: inline-block;">
                         </div>
+                <br>
                 Wisdom:
                     <div id="wis">{{ character.getWis() }}</div>
-                        <div id="wis_increase">
+                        <div id="wis_increase" style="display: inline-block;">
                             <button onclick="changeWisAttr('add');" type="button"> + </button>
                         </div>
-                        <div id="wis_decrease">
+                        <div id="wis_decrease" style="display: inline-block;">
                         </div>
                     <div id="form">
                     </div>
