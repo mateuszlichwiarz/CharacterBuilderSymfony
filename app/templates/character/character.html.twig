@@ -12,10 +12,10 @@
                 var wis = document.getElementById('wis_value').innerHTML;
 
                 var form = 
-                    '<form action="{{ path("character_update") }}" method="POST">'+
+                    '<form action="{{ path("character_attribute_update") }}" method="POST">'+
                     '<input type="hidden" name="dex" value="'+dex+'"/>'+
                     '<input type="hidden" name="str" value="'+str+'"/>'+
-                    '<input type="hidden" name="dex" value="'+wis+'"/>'+
+                    '<input type="hidden" name="wis" value="'+wis+'"/>'+
                     '<input type="submit" value="enter"/></form>'
                 ;
                 return form;
@@ -46,7 +46,7 @@
                     document.getElementById('dex_decrease').innerHTML= '';
                 }else
                 {
-                    //var path = {{ path('character_update') }};
+                    //var path = {{ path('character_attribute_update') }};
                     var form = createForm();
                     document.getElementById('form').innerHTML = form;
                     document.getElementById('dex_decrease').innerHTML =
@@ -83,7 +83,7 @@
                     document.getElementById('str_decrease').innerHTML= '';
                 }else
                 {
-                    //var path = {{ path('character_update') }};
+                    //var path = {{ path('character_attribute_update') }};
                     var form = createForm();
                     document.getElementById('form').innerHTML = form;
                     document.getElementById('str_decrease').innerHTML = 
@@ -120,7 +120,7 @@
                     document.getElementById('wis_decrease').innerHTML= '';
                 }else
                 {
-                    //var path = {{ path('character_update') }};
+                    //var path = {{ path('character_attribute_update') }};
                     var form = createForm();
                     document.getElementById('form').innerHTML = form;
                     document.getElementById('wis_decrease').innerHTML =
@@ -148,9 +148,7 @@
                 <br>
                 ----------------------------
             </div>
-            <div class="stats">
-                <br>
-                Stats:
+            <div class="attributes">
                 <br>
                 <div id="str">
                     Strength:
@@ -176,7 +174,7 @@
                         </div>
                         <div id="wis_decrease" style="display: inline-block;"></div>
                 </div>
-                <div id="form"></div>
+                <div id="form" style="display: inline-block;"></div>
                 <br>
                 ----------------------------
             </div>
