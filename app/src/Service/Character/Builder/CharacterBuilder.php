@@ -23,9 +23,12 @@ class CharacterBuilder
         
         $character
             ->setLvl(1)
+            ->setHp(100)
             ->setExp(1)
-            ->setStr(10)
             ->setSkillPoints(10)
+            ->setStr(10)
+            ->setDex(10)
+            ->setWis(10)
             ->setArmor($this->equipArmor(1))
             ->setWeapon($this->equipWeapon(1));
         return $character;
