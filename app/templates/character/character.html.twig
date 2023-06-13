@@ -5,10 +5,24 @@
         
         <script type="text/javascript">
 
+            function createForm()
+            {
+                var dex = document.getElementById('dex').innerHTML;
+                var str = document.getElementById('str').innerHTML;
+                var wis = document.getElementById('wis').innerHTML;
+
+                var form = 
+                '<form action="{{ path("character_update") }}" method="POST">'+
+                '<input type="hidden" name="dex" value="'+dex+'"/>'+
+                '<input type="hidden" name="str" value="'+str+'"/>'+
+                '<input type="hidden" name="dex" value="'+wis+'"/>'+
+                '<input type="submit" value="enter"/></form>'
+                ;
+                return form;
+            }
 
             function changeDexAttr(operation)
             {
-                var marker;
                 var sp  = document.getElementById('sp').innerHTML;
                 var dex = document.getElementById('dex').innerHTML;
                 
@@ -33,7 +47,7 @@
                 }else
                 {
                     //var path = {{ path('character_update') }};
-                    var form = '<form action="{{ path("character_update") }}" method="POST"><input type="hidden" name="sp" value="'+sp+'"/><input type="hidden" name="dex" value="'+dex+'"/><input type="submit" value="enter"/></form>';
+                    var form = createForm();
                     document.getElementById('form').innerHTML = form;
                     document.getElementById('dex_decrease').innerHTML= '<button onclick="changeDexAttr'+"('sub');"+'" type="button"> - </button>';
                 }
@@ -41,7 +55,6 @@
 
             function changeStrAttr(operation)
             {
-                var marker;
                 var sp  = document.getElementById('sp').innerHTML;
                 var str = document.getElementById('str').innerHTML;
                 
@@ -78,7 +91,6 @@
 
             function changeWisAttr(operation)
             {
-                var marker;
                 var sp  = document.getElementById('sp').innerHTML;
                 var wis = document.getElementById('wis').innerHTML;
                 
