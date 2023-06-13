@@ -52,7 +52,7 @@ class CharacterManager
     }
     */
 
-    public function getUserCharacter(): character
+    public function getUserCharacter(): character|null
     {
         /** @var User $user */
         $user = $this->security->getUser();
