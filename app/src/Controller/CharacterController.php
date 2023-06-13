@@ -19,6 +19,7 @@ use App\Entity\Character;
 use App\Repository\CharacterRepository;
 use App\Service\Character\Attribute\SkillPointComparator;
 use App\Service\Character\Attribute\AttributeComparator;
+use App\Service\Character\Attribute\AttributeUpdateValidator;
 use App\Service\Character\Attribute\SkillPoints\SkillPointsAvailable;
 use App\Service\Character\Attribute\SkillPoints\SkillPointsDiff;
 use App\Service\Character\Attribute\Strength\StrengthDiff;
@@ -69,15 +70,13 @@ class CharacterController extends AbstractController
         Request $request,
         StrengthDiff $strengthDiff,
         SkillPointsDiff $skillPointsDiff,
-        SkillPointsAvailable $spAvailable,
-        StrengthValidator $strValidator,
+        AttributeUpdateValidator $attrUpdValidator,
         ): Response
     {   
         $character = $this->characterManager->getUserCharacter();
         $requestStrength = intval($request->get('str'));
 
-        if($spAvailable->isAvailable($character) === true &&
-           $strValidator->getValid($character, $requestStrength) == true) {
+        if($attrUpdValidator->getValid($character, $requestStrength) == true) {
 
             $diffStrength = $strengthDiff->getDiff($character, $requestStrength);
             $freePoints = $skillPointsDiff->getDiff($character, $diffStrength);
