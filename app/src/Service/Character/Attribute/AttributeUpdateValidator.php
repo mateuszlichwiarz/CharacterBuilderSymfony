@@ -14,10 +14,7 @@ class AttributeUpdateValidator
     private array $attributes;
 
     public function __construct(
-        private StrengthDiff $strengthDiff,
-        private SkillPointsDiff $skillPointsDiff,
         private SkillPointsAvailable $spAvailable,
-        private StrengthValidator $strValidator,
     )
     {}
 
@@ -26,14 +23,18 @@ class AttributeUpdateValidator
         if($this->spAvailable->isAvailable($character) === true) {
 
             $sumRequestAttrVal = array_sum($this->attributes);
-
             $sumCharacterAttr = $this->getCharacterAttributesSum($character);
             $requiredSkillPoints = $sumRequestAttrVal - $sumCharacterAttr;
 
-            if($requiredSkillPoints > $character->getSkillPoints()) {
+            if($requiredSkillPoints > 0)
+            {
+                if($requiredSkillPoints > $character->getSkillPoints()) {
+                    return false;
+                }elseif($requiredSkillPoints <= $character->getSkillPoints() ) {
+                    return true;
+                }
+            }else{
                 return false;
-            }elseif($requiredSkillPoints <= $character->getSkillPoints() ) {
-                return true;
             }
 
         }else
@@ -44,7 +45,7 @@ class AttributeUpdateValidator
 
     public function addAttribute(int $attr): self
     {
-        $this->attributes = [$attr];
+        $this->attributes[] = $attr;
 
         return $this;
     }
