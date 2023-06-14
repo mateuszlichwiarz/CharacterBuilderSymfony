@@ -10,7 +10,6 @@ use App\Service\Character\Attribute\Strength\StrengthValidator;
 
 class AttributeUpdateValidator
 {
-
     private array $attributes;
 
     public function __construct(
@@ -23,7 +22,7 @@ class AttributeUpdateValidator
         if($this->spAvailable->isAvailable($character) === true) {
 
             $sumRequestAttrVal = array_sum($this->attributes);
-            $sumCharacterAttr = $this->getCharacterAttributesSum($character);
+            $sumCharacterAttr = $this->getSumCharacterAttributes($character);
             $requiredSkillPoints = $sumRequestAttrVal - $sumCharacterAttr;
 
             if($requiredSkillPoints > 0)
@@ -50,7 +49,7 @@ class AttributeUpdateValidator
         return $this;
     }
 
-    private function getCharacterAttributesSum(Character $character): int
+    private function getSumCharacterAttributes(Character $character): int
     {
         $dex = $character->getDex();
         $str = $character->getStr();
