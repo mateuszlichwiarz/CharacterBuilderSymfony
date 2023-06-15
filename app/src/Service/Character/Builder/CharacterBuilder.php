@@ -17,7 +17,7 @@ class CharacterBuilder
         private WeaponRepository $weaponRepository,
         ){}
 
-    public function buildCharacter(object $character): character
+    public function buildCharacter(Character $character): character
     {
         //$this->logger->info('creating a character.');
         
