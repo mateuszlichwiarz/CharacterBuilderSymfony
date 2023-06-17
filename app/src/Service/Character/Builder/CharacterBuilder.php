@@ -5,44 +5,98 @@ namespace App\Service\Character\Builder;
 use App\Entity\Character;
 use App\Entity\Armor;
 use App\Entity\Weapon;
-use App\Repository\ArmorRepository;
-use App\Repository\WeaponRepository;
 use Psr\Log\LoggerInterface;
 
 class CharacterBuilder
 {
+    private Weapon $weapon;
+    private Armor $armor;
+    private string $name;
+    private int $skillPoints;
+    private int $hp;
+    private int $lvl;
+    private int $exp;
+    private int $str;
+    private int $dex;
+    private int $wis;
+
     public function __construct(
-        //private LoggerInterface $logger,
-        private ArmorRepository $armorRepository,
-        private WeaponRepository $weaponRepository,
+        //private LoggerInterface $logger
         ){}
 
-    public function buildCharacter(Character $character): character
+    public function buildCharacter(): Character
     {
-        //$this->logger->info('creating a character.');
-        
-        $character
-            ->setLvl(1)
-            ->setHp(100)
-            ->setExp(1)
-            ->setSkillPoints(10)
-            ->setStr(10)
-            ->setDex(10)
-            ->setWis(10)
-            ->setArmor($this->equipArmor(1))
-            ->setWeapon($this->equipWeapon(1));
-        return $character;
+        return new Character(
+            $this->name,
+            $this->hp,
+            $this->lvl,
+            $this->exp,
+            $this->skillPoints,
+            $this->str,
+            $this->dex,
+            $this->wis,
+            $this->weapon,
+            $this->armor,
+            );
     }
 
-    private function equipArmor(int $id): Armor
+    public function setLvl(int $lvl): self
     {
-        $armor = $this->armorRepository->findById($id);
-        return $armor;
+        $this->lvl = $lvl;
+        return $this;
     }
 
-    private function equipWeapon(int $id): Weapon
+    public function setExp(int $exp): self
     {
-        $weapon = $this->weaponRepository->findById($id);
-        return $weapon;
+        $this->exp = $exp;
+        return $this;
+    }
+
+    public function setSkillPoints(int $skillPoints): self
+    {
+        $this->skillPoints = $skillPoints;
+        return $this;
+    }
+
+    public function setStr(int $str): self
+    {
+        $this->str = $str;
+        return $this;
+    }
+
+    public function setDex(int $dex): self
+    {
+        $this->dex = $dex;
+        return $this;
+    }
+
+    public function setWis(int $wis): self
+    {
+        $this->wis = $wis;
+        return $this;
+    }
+
+    public function setHp(int $hp): self
+    {
+        $this->hp = $hp;
+        return $this;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function equipArmor(Armor $armor): self
+    {
+        $this->armor = $armor;
+        return $this;
+    }
+
+    public function equipWeapon(Weapon $weapon): self
+    {
+        $this->weapon = $weapon;
+        return $this;
     }
 }
