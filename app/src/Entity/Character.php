@@ -95,7 +95,7 @@ class Character
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function changeName(string $name): self
     {
         $this->name = $name;
 
@@ -107,7 +107,7 @@ class Character
         return $this->hp;
     }
 
-    public function setHp(int $hp): self
+    public function changeHp(int $hp): self
     {
         $this->hp = $hp;
 
@@ -119,7 +119,7 @@ class Character
         return $this->lvl;
     }
 
-    public function setLvl(int $lvl): self
+    public function changeLvl(int $lvl): self
     {
         $this->lvl = $lvl;
 
@@ -131,7 +131,7 @@ class Character
         return $this->exp;
     }
 
-    public function setExp(int $exp): self
+    public function changeExp(int $exp): self
     {
         $this->exp = $exp;
 
@@ -143,7 +143,7 @@ class Character
         return $this->str;
     }
 
-    public function setStr(int $str): self
+    public function changeStr(int $str): self
     {
         $this->str = $str;
 
@@ -155,7 +155,7 @@ class Character
         return $this->dex;
     }
 
-    public function setDex(int $dex): self
+    public function changeDex(int $dex): self
     {
         $this->dex = $dex;
 
@@ -167,7 +167,7 @@ class Character
         return $this->wis;
     }
 
-    public function setWis(int $wis): self
+    public function changeWis(int $wis): self
     {
         $this->wis = $wis;
 
@@ -179,7 +179,7 @@ class Character
         return $this->skillPoints;
     }
 
-    public function setSkillPoints(int $skillPoints): self
+    public function changeSkillPoints(int $skillPoints): self
     {
         $this->skillPoints = $skillPoints;
 
@@ -191,7 +191,7 @@ class Character
         return $this->weapon;
     }
 
-    public function setWeapon(?Weapon $weapon): self
+    public function equipWeapon(?Weapon $weapon): self
     {
         $this->weapon = $weapon;
 
@@ -203,7 +203,7 @@ class Character
         return $this->armor;
     }
 
-    public function setArmor(?Armor $armor): self
+    public function equipArmor(?Armor $armor): self
     {
         $this->armor = $armor;
 
