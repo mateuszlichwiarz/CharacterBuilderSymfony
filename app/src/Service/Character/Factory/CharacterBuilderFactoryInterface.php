@@ -3,10 +3,9 @@
 namespace App\Service\Character\Factory;
 
 use App\Service\Character\Builder\CharacterBuilder;
-
 use App\Entity\Character;
 
 interface CharacterBuilderFactoryInterface
 {
-    public function createBuilder(object $character): character;
+    public function createBuilder(): CharacterBuilder;
 }
