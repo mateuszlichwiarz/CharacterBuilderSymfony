@@ -58,8 +58,27 @@ class Character
     #[ORM\OneToMany(mappedBy: 'winner', targetEntity: Combat::class)]
     private Collection $winner;
 
-    public function __construct()
+    public function __construct(
+        string $name,
+        int $hp,
+        int $lvl,
+        int $exp,
+        int $skillPoints,
+        int $str,
+        int $dex,
+        int $wis
+        )
     {
+        $this->name = $name;
+        $this->hp   = $hp;
+        $this->lvl  = $lvl;
+        $this->exp  = $exp;
+        $this->str  = $str;
+        $this->dex  = $dex;
+        $this->wis  = $wis;
+        $this->skillPoints = $skillPoints;
+
+
         $this->tours = new ArrayCollection();
         $this->attacker = new ArrayCollection();
         $this->defender = new ArrayCollection();
