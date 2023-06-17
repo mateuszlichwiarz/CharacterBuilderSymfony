@@ -16,12 +16,10 @@ class CharacterBuilderFactory implements CharacterBuilderFactoryInterface
 {
     public function __construct(
         //private LoggerInterface $logger,
-        private CharacterBuilder $characterBuilder
         ){}
 
-    public function createBuilder(object $character): character
+    public function createBuilder(): CharacterBuilder
     {
-        
-        return $this->characterBuilder->buildCharacter($character);
+        return new CharacterBuilder();
     }
 }
