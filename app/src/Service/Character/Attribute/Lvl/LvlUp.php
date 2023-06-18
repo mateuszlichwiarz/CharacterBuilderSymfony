@@ -25,7 +25,7 @@ class LvlUp
                 ->changeExpCapThreshold($character->getExpCapThreshold() + $this->expCapThreshold)
                 ->changeLvl($character->getLvl() + 1)
                 ->changeExp(0);
-            $this->characterRepository->save($character);
+            $this->characterRepository->save($character, true);
         }
     }
 
