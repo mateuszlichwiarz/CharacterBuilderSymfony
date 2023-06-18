@@ -75,21 +75,9 @@ class CharacterTestController extends AbstractController
         if($attrValidator->isValid($character, $attributes) === true)
         {
             $characterAttributeUpdater->update($character, $attributes);
+            
+            return $this->redirectToRoute('character_show');
         }
-        
-        /*
-        if($attrUpdValidator->isValid($character) == true) {
-
-            $diffStrength = $strengthDiff->getDiff($character, $requestStrength);
-            $freePoints = $skillPointsDiff->getDiff($character, $diffStrength);
-            if($freePoints >= 0) {
-                $character->setStr($requestStrength);
-                $character->setSkillPoints($freePoints);
-                $this->characterRepository->save($character, true);
-            }
-        }
-        */
-        return $this->redirectToRoute('character_show');
     }
 
     #[Route('/tests/character/inventory', name: 'character_inventory')]
