@@ -5,18 +5,17 @@ namespace App\Service\Character\Attribute\Lvl;
 use App\Entity\Character;
 use App\Repository\CharacterRepository;
 
-class LvlUp
+class CharacterLeveling
 {
-    //xml import
     private int $expCapThreshold = 1000;
     //class HpThreshold
-    private float $hpFactor = 0.20;
+    private float $hpFactor = 0.08;
 
     public function __construct(
         private CharacterRepository $characterRepository
     ){}
 
-    public function execute(Character $character): void
+    public function levelUp(Character $character): void
     {
         if($character->getExp() >= $character->getExpCapThreshold())
         {
@@ -46,7 +45,7 @@ class LvlUp
     {
         return $character->getExp() - $character->getExpCapThreshold();
     }
-    
+
     private function newSkillPoints(Character $character): int
     {
         return $character->getSkillPoints() + 10;
