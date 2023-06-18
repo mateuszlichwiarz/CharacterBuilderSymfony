@@ -37,4 +37,10 @@ class RequestAttributes
         $attributes = [$this->str, $this->dex, $this->wis];
         return $attributes;
     }
+
+    public function getSumAttributes(): int
+    {
+        $sum = $this->str + $this->dex + $this->wis;
+        return $sum;
+    }
 }
