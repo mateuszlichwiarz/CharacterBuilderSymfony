@@ -10,6 +10,7 @@ use App\Entity\Character;
 use App\Entity\Weapon;
 use App\Repository\UserRepository;
 use App\Repository\ArmorRepository;
+use App\Repository\CharacterRepository;
 use App\Repository\WeaponRepository;
 
 class CharacterCreator
@@ -21,6 +22,7 @@ class CharacterCreator
     public function __construct(
         private CharacterBuilderFactory $characterBuilderFactory,
         private UserRepository $userRepository,
+        private CharacterRepository $characterRepository,
         private WeaponRepository $weaponRepository,
         private ArmorRepository $armorRepository,
         )
@@ -97,6 +99,7 @@ class CharacterCreator
 
     private function save(Character $character)
     {
+        $this->characterRepository->save($character, true);
         $this->userRepository->saveUserCharacter($character, $this->userId);
     }
 
