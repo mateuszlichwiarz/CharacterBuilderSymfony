@@ -15,8 +15,10 @@ use App\Service\Character\CharacterCreator;
 use App\Service\Character\Attribute\AttributeValidator;
 use App\Service\Character\Attribute\RequestAttributes;
 use App\Service\Character\Attribute\Updater\CharacterAttributeUpdater;
+use App\Service\Character\Attribute\Lvl\LvlUp;
 
 use App\Repository\CharacterRepository;
+
 
 class CharacterTestController extends AbstractController
 {
@@ -24,6 +26,7 @@ class CharacterTestController extends AbstractController
         private CharacterRepository $characterRepository,
         private CharacterManager $characterManager,
         private CharacterCreator $characterCreator,
+        private LvlUp $lvlUp,
     ){}
 
     #[Route("/tests/character", name: 'character_show')]
@@ -78,6 +81,17 @@ class CharacterTestController extends AbstractController
             
             return $this->redirectToRoute('character_show');
         }
+    }
+
+    #[Route('/tests/character/level_up', name: 'level_up_test')]
+    public function newLevelAction(): Response
+    {
+        $character = $this->characterManager->getUserCharacter();
+        $character->changeExp(5005);
+        $this->characterRepository->save($character,true);
+        $this->lvlUp->execute($character);
+
+        return $this->redirectToRoute('character_show');
     }
 
     #[Route('/tests/character/inventory', name: 'character_inventory')]
