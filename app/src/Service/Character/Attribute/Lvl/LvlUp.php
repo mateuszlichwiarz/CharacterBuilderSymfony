@@ -9,7 +9,7 @@ class LvlUp
 {
     //xml import
     private int $expCapThreshold = 1000;
-    //xml import
+    //class HpThreshold
     private float $hpFactor = 0.20;
 
     public function __construct(
@@ -22,10 +22,10 @@ class LvlUp
         {
             $character
                 ->changeHp($this->newHp($character))
+                ->changeExp($this->restOfExpLeft($character))
                 ->changeExpCapThreshold($this->newExpCap($character))
                 ->changeLvl($character->getLvl() + 1)
-                ->changeExp($this->restOfExpLeft($character))
-                ->changeSkillPoints(10)
+                ->changeSkillPoints($this->newSkillPoints($character))
                 ;
             $this->characterRepository->save($character, true);
         }
@@ -33,7 +33,7 @@ class LvlUp
 
     private function newHp(Character $character): int
     {
-        $newHp = round($character->getHp() * $this->hpFactor);
+        $newHp = $character->getHp() + round($character->getHp() * $this->hpFactor);
         return intval($newHp);
     }
 
@@ -41,7 +41,7 @@ class LvlUp
     {
         return $character->getExpCapThreshold() + $this->expCapThreshold;
     }
-
+    
     private function restOfExpLeft(Character $character): int
     {
         return $character->getExp() - $character->getExpCapThreshold();
