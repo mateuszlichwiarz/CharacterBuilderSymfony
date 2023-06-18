@@ -26,7 +26,7 @@ class CharacterTestController extends AbstractController
         private CharacterCreator $characterCreator,
     ){}
 
-    #[Route("/character", name: 'character_show')]
+    #[Route("/tests/character", name: 'character_show')]
     public function show(Request $request): Response
     {
         $character = $this->characterManager->getUserCharacter();
@@ -39,7 +39,7 @@ class CharacterTestController extends AbstractController
         }
     }
     
-    #[Route("/character/create", name: 'character_create')]
+    #[Route("/tests/character/create", name: 'character_create')]
     public function create(Request $request): Response
     {
         $form = $this->createForm(CreateCharacterFormType::class);
@@ -62,7 +62,7 @@ class CharacterTestController extends AbstractController
         ]);
     }
 
-    #[Route('/character/update', name: 'character_attribute_update')]
+    #[Route('/tests/character/update', name: 'character_attribute_update')]
     public function update(
         Request $request,
         AttributeUpdateValidator $attrUpdValidator,
@@ -92,7 +92,7 @@ class CharacterTestController extends AbstractController
         return $this->redirectToRoute('character_show');
     }
 
-    #[Route('/character/inventory', name: 'character_inventory')]
+    #[Route('/tests/character/inventory', name: 'character_inventory')]
     public function inventory(): Response
     {
         /*
