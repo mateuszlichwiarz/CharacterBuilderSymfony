@@ -18,11 +18,11 @@ class LvlUp
 
     public function execute(Character $character): void
     {
-        if($character->getExp() >= $character->getExpCap())
+        if($character->getExp() >= $character->getExpCapThreshold())
         {
             $character
                 ->changeHp($this->newHp($character))
-                ->changeExpCap($character->getExpCap() + $this->expCapThreshold)
+                ->changeExpCapThreshold($character->getExpCapThreshold() + $this->expCapThreshold)
                 ->changeLvl($character->getLvl() + 1)
                 ->changeExp(0);
             $this->characterRepository->save($character);
