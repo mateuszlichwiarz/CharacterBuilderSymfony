@@ -76,7 +76,23 @@ class CharacterManager
         };
         $this->saveUserCharacter($character, $userId);
     }
+    
+    private function findWeapon(string $weaponName): Weapon
+    {
+        $weapon = $this->weaponRepository->findByName($weaponName);
+        return $weapon;
+    }
 
+    private function findArmor(string $armorName): Armor
+    {
+        $armor = $this->armorRepository->findByName($armorName);
+        return $armor;
+    }
+
+    private function createCharacterBuilder(): CharacterBuilder
+    {
+        return $this->characterBuilderFactory->createBuilder();
+    }
 
     private function saveUserCharacter($character, $userId): void
     {
