@@ -2,40 +2,81 @@
 
 namespace App\Service\Character;
 
-use App\Repository\CharacterRepository;
-use App\Repository\UserRepository;
-use App\Entity\User;
-use App\Entity\Character;
-
-use App\Service\Character\Factory\CharacterBuilderFactory;
 use Symfony\Bundle\SecurityBundle\Security;
 
+use App\Repository\CharacterRepository;
+use App\Repository\UserRepository;
+use App\Repository\ArmorRepository;
+use App\Repository\WeaponRepository;
+
+use App\Entity\User;
+use App\Entity\Character;
+use App\Entity\Weapon;
+use App\Entity\Armor;
+
+use App\Service\Character\Builder\CharacterBuilder;
+use App\Service\Character\Factory\CharacterBuilderFactory;
+
+use App\Service\Character\Attribute\RequestAttributes;
 
 class CharacterManager
 {
     public function __construct(
         private CharacterRepository $characterRepository,
+        private ArmorRepository $armorRepository,
+        private WeaponRepository $weaponRepository,
         private UserRepository $userRepository,
         private Security $security,
         private CharacterBuilderFactory $characterBuilderFactory
     ){}
     
-    public function createCharacter(object $character): void
+    public function createCharacter(array $data)
     {
         $userId = $this->getUserId();
-        $character = $this->characterBuilderFactory->createBuilder($character);
-        
+
+        $character = match(strtolower($data['type'])) {
+            'warrior' => $this->createCharacterBuilder()
+                ->setName($data['name'])
+                ->setSkillPoints(10)
+                ->setHp(120)
+                ->setStr(20)
+                ->setDex(15)
+                ->setWis(10)
+                ->setLvl(1)
+                ->setExp(0)
+                ->equipArmor($this->findArmor('pantaloons'))
+                ->equipWeapon($this->findWeapon('fists'))
+                ->buildCharacter(),
+
+            'archer' => $this->createCharacterBuilder()
+                ->setName($data['name'])
+                ->setSkillPoints(10)
+                ->setHp(100)
+                ->setStr(15)
+                ->setDex(20)
+                ->setWis(10)
+                ->setLvl(1)
+                ->setExp(0)
+                ->equipArmor($this->findArmor('pantaloons'))
+                ->equipWeapon($this->findWeapon('fists'))
+                ->buildCharacter(),
+
+            'mage' => $this->createCharacterBuilder()
+                ->setName($data['name'])
+                ->setSkillPoints(10)
+                ->setHp(80)
+                ->setStr(10)
+                ->setDex(15)
+                ->setWis(20)
+                ->setLvl(1)
+                ->setExp(0)
+                ->equipArmor($this->findArmor('pantaloons'))
+                ->equipWeapon($this->findWeapon('fists'))
+                ->buildCharacter(),
+        };
         $this->saveUserCharacter($character, $userId);
     }
 
-    public function updateCharacterAttributes($request)
-    {
-        $str = intval($request->request->get('str'));
-        $sp  = intval($request->request->get('sp'));
-        $requestArray = $request->request->get();
-
-        //$characterAttributes = $this->getUserCharacter()->getAttributes();
-    }
 
     private function saveUserCharacter($character, $userId): void
     {
