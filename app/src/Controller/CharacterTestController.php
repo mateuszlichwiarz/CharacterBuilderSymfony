@@ -20,17 +20,21 @@ use App\Repository\CharacterRepository;
 use App\Service\Character\Attribute\SkillPointComparator;
 use App\Service\Character\Attribute\AttributeComparator;
 use App\Service\Character\Attribute\AttributeUpdateValidator;
+use App\Service\Character\Attribute\RequestAttributes;
 use App\Service\Character\Attribute\SkillPoints\SkillPointsAvailable;
 use App\Service\Character\Attribute\SkillPoints\SkillPointsDiff;
 use App\Service\Character\Attribute\Strength\StrengthDiff;
 use App\Service\Character\Attribute\Strength\StrengthValidator;
 
-class CharacterController extends AbstractController
+use App\Service\Character\Attribute\Updater\CharacterAttributeUpdater;
+use App\Service\Character\CharacterCreator;
+
+class CharacterTestController extends AbstractController
 {
     public function __construct(
-        private CharacterBuilderFactory $characterBuilderFactory,
         private CharacterRepository $characterRepository,
         private CharacterManager $characterManager,
+        private CharacterCreator $characterCreator,
     ){}
 
     #[Route("/character", name: 'character_show')]
@@ -49,13 +53,17 @@ class CharacterController extends AbstractController
     #[Route("/character/create", name: 'character_create')]
     public function create(Request $request): Response
     {
-        $character = new Character();
-
-        $form = $this->createForm(CreateCharacterFormType::class, $character);
+        $form = $this->createForm(CreateCharacterFormType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-                $character = $form->getData();
-                $this->characterManager->createCharacter($character);
+                $data = $form->getData();
+
+                $this->characterCreator
+                     ->setUserId($this->characterManager->getUserId())
+                     ->setName($data['name'])
+                     ->setType($data['type'])
+                    ->createCharacter()
+                    ;
                 
             return $this->redirectToRoute('character_show');
         }
@@ -65,18 +73,25 @@ class CharacterController extends AbstractController
         ]);
     }
 
-    #[Route('/character/update', name: 'character_update')]
+    #[Route('/character/update', name: 'character_attribute_update')]
     public function update(
         Request $request,
         StrengthDiff $strengthDiff,
         SkillPointsDiff $skillPointsDiff,
         AttributeUpdateValidator $attrUpdValidator,
+        CharacterAttributeUpdater $characterAttributeUpdater,
         ): Response
     {   
         $character = $this->characterManager->getUserCharacter();
-        $requestStrength = intval($request->get('str'));
+        $attributes = new RequestAttributes($request);
 
-        if($attrUpdValidator->getValid($character, $requestStrength) == true) {
+        if($attrUpdValidator->isValid($character, $attributes))
+        {
+            $characterAttributeUpdater->update($character, $attributes);
+        }
+        
+        /*
+        if($attrUpdValidator->isValid($character) == true) {
 
             $diffStrength = $strengthDiff->getDiff($character, $requestStrength);
             $freePoints = $skillPointsDiff->getDiff($character, $diffStrength);
@@ -86,6 +101,7 @@ class CharacterController extends AbstractController
                 $this->characterRepository->save($character, true);
             }
         }
+        */
         return $this->redirectToRoute('character_show');
     }
 
