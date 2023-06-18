@@ -7,13 +7,43 @@ use App\Repository\CharacterRepository;
 
 class LvlUp
 {
+    //xml import
+    private int $expCapThreshold = 1000;
+    //xml import
+    private float $hpFactor = 0.20;
+
     public function __construct(
         private CharacterRepository $characterRepository
     ){}
 
-    public function up(Character $character,int $lvl): void
+    public function execute(Character $character): void
     {
-        $character->setLvl($lvl);
-        $this->characterRepository->save($character);
+        if($character->getExp() >= $character->getExpCap())
+        {
+            $character
+                ->changeHp($this->newHp($character))
+                ->changeExpCap($character->getExpCap() + $this->expCapThreshold)
+                ->changeLvl($character->getLvl() + 1)
+                ->changeExp(0);
+            $this->characterRepository->save($character);
+        }
+    }
+
+    private function newHp(Character $character): int
+    {
+        $newHp = round($character->getHp() * $this->hpFactor);
+        return intval($newHp);
+    }
+
+    public function setHpFactor(float $factor): void
+    {
+        $this->hpFactor = $factor;
+        return;
+    }
+
+    public function setExpCapThreshold(int $threshold): void
+    {
+        $this->expCapThreshold = $threshold;
+        return;
     }
 }
