@@ -12,9 +12,9 @@ class RequestAttributes
 
     public function __construct(private Request $request)
     {
-        $this->str = $request->get('str');
-        $this->dex = $request->get('dex');
-        $this->wis = $request->get('wis');
+        $this->str = intval($request->get('str'));
+        $this->dex = intval($request->get('dex'));
+        $this->wis = intval($request->get('wis'));
     }
 
     public function getStr(): int
