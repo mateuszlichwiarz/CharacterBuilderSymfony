@@ -66,7 +66,9 @@ class Character
         int $skillPoints,
         int $str,
         int $dex,
-        int $wis
+        int $wis,
+        Weapon $weapon,
+        Armor $armor,
         )
     {
         $this->name = $name;
@@ -77,6 +79,8 @@ class Character
         $this->dex  = $dex;
         $this->wis  = $wis;
         $this->skillPoints = $skillPoints;
+        $this->weapon = $weapon;
+        $this->armor  = $armor;
 
 
         $this->tours = new ArrayCollection();
