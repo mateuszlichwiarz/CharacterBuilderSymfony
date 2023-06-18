@@ -23,9 +23,8 @@ class LevelUpController extends AbstractController
     public function newLevelAction(): Response
     {
         $character = $this->characterManager->getUserCharacter();
-        $character->changeExp(3003);
         $this->lvlUp->execute($character);
 
-        return new Response('Level Up.');
+        return $this->redirectToRoute('character_show');
     }
 }
