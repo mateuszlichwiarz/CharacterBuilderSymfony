@@ -76,7 +76,12 @@ class CharacterManager
         };
         $this->saveUserCharacter($character, $userId);
     }
-    
+
+    private function createCharacterBuilder(): CharacterBuilder
+    {
+        return $this->characterBuilderFactory->createBuilder();
+    }
+
     private function findWeapon(string $weaponName): Weapon
     {
         $weapon = $this->weaponRepository->findByName($weaponName);
@@ -87,11 +92,6 @@ class CharacterManager
     {
         $armor = $this->armorRepository->findByName($armorName);
         return $armor;
-    }
-
-    private function createCharacterBuilder(): CharacterBuilder
-    {
-        return $this->characterBuilderFactory->createBuilder();
     }
 
     private function saveUserCharacter($character, $userId): void
