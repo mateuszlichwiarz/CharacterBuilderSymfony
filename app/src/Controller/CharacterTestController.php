@@ -12,7 +12,7 @@ use App\Form\Character\CreateCharacterFormType;
 use App\Service\Character\CharacterManager;
 use App\Service\Character\CharacterCreator;
 
-use App\Service\Character\Attribute\AttributeUpdateValidator;
+use App\Service\Character\Attribute\AttributeValidator;
 use App\Service\Character\Attribute\RequestAttributes;
 use App\Service\Character\Attribute\Updater\CharacterAttributeUpdater;
 
@@ -27,7 +27,7 @@ class CharacterTestController extends AbstractController
     ){}
 
     #[Route("/tests/character", name: 'character_show')]
-    public function show(Request $request): Response
+    public function show(): Response
     {
         $character = $this->characterManager->getUserCharacter();
         if(is_null($character)) {
@@ -65,14 +65,14 @@ class CharacterTestController extends AbstractController
     #[Route('/tests/character/update', name: 'character_attribute_update')]
     public function update(
         Request $request,
-        AttributeUpdateValidator $attrUpdValidator,
+        AttributeValidator $attrValidator,
         CharacterAttributeUpdater $characterAttributeUpdater,
         ): Response
     {   
         $character = $this->characterManager->getUserCharacter();
         $attributes = new RequestAttributes($request);
 
-        if($attrUpdValidator->isValid($character, $attributes))
+        if($attrValidator->isValid($character, $attributes) === true)
         {
             $characterAttributeUpdater->update($character, $attributes);
         }
