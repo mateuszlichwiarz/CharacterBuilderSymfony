@@ -41,10 +41,15 @@ class LvlUp
     {
         return $character->getExpCapThreshold() + $this->expCapThreshold;
     }
-    
+
     private function restOfExpLeft(Character $character): int
     {
         return $character->getExp() - $character->getExpCapThreshold();
+    }
+    
+    private function newSkillPoints(Character $character): int
+    {
+        return $character->getSkillPoints() + 10;
     }
 
     public function setHpFactor(float $factor): void
