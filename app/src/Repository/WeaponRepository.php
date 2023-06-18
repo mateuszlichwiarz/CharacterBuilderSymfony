@@ -50,8 +50,8 @@ class WeaponRepository extends ServiceEntityRepository
 
     public function findByName(string $name): ?Weapon
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.name = :name')
+        return $this->createQueryBuilder('w')
+            ->andWhere('w.name = :name')
             ->setParameter('name', $name)
             ->getQuery()
             ->getOneOrNullResult();
