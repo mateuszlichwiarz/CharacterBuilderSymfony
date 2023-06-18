@@ -344,4 +344,11 @@ class Character
         return $this->expCapThreshold;
     }
 
+    public function changeExpCapThreshold(int $expCapThreshold): self
+    {
+        $this->expCapThreshold = $expCapThreshold;
+
+        return $this;
+    }
+
 }
