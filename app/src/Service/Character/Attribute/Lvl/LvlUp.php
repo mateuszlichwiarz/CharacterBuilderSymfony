@@ -24,7 +24,7 @@ class LvlUp
                 ->changeHp($this->newHp($character))
                 ->changeExpCapThreshold($character->getExpCapThreshold() + $this->expCapThreshold)
                 ->changeLvl($character->getLvl() + 1)
-                ->changeExp(0);
+                ->changeExp($this->restOfExpLeft($character));
             $this->characterRepository->save($character, true);
         }
     }
@@ -33,6 +33,11 @@ class LvlUp
     {
         $newHp = round($character->getHp() * $this->hpFactor);
         return intval($newHp);
+    }
+
+    private function restOfExpLeft(Character $character): int
+    {
+        return $character->getExp() - $character->getExpCapThreshold();
     }
 
     public function setHpFactor(float $factor): void
