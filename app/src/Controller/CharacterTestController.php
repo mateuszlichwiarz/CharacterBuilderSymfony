@@ -5,29 +5,18 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-
-use App\Service\Character\Attribute\Comparator;
-
-use App\Service\Character\CharacterManager;
-use App\Service\Character\Factory\CharacterBuilderFactory;
 
 use App\Form\Character\CreateCharacterFormType;
 
-use App\Entity\Character;
-use App\Repository\CharacterRepository;
-use App\Service\Character\Attribute\SkillPointComparator;
-use App\Service\Character\Attribute\AttributeComparator;
+use App\Service\Character\CharacterManager;
+use App\Service\Character\CharacterCreator;
+
 use App\Service\Character\Attribute\AttributeUpdateValidator;
 use App\Service\Character\Attribute\RequestAttributes;
-use App\Service\Character\Attribute\SkillPoints\SkillPointsAvailable;
-use App\Service\Character\Attribute\SkillPoints\SkillPointsDiff;
-use App\Service\Character\Attribute\Strength\StrengthDiff;
-use App\Service\Character\Attribute\Strength\StrengthValidator;
-
 use App\Service\Character\Attribute\Updater\CharacterAttributeUpdater;
-use App\Service\Character\CharacterCreator;
+
+use App\Repository\CharacterRepository;
 
 class CharacterTestController extends AbstractController
 {
@@ -76,8 +65,6 @@ class CharacterTestController extends AbstractController
     #[Route('/character/update', name: 'character_attribute_update')]
     public function update(
         Request $request,
-        StrengthDiff $strengthDiff,
-        SkillPointsDiff $skillPointsDiff,
         AttributeUpdateValidator $attrUpdValidator,
         CharacterAttributeUpdater $characterAttributeUpdater,
         ): Response
