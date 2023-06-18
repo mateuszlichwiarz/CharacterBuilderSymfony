@@ -12,6 +12,7 @@ class CharacterBuilder
     private Weapon $weapon;
     private Armor $armor;
     private string $name;
+    private int $expCapThreshold;
     private int $skillPoints;
     private int $hp;
     private int $lvl;
@@ -31,6 +32,7 @@ class CharacterBuilder
             $this->hp,
             $this->lvl,
             $this->exp,
+            $this->expCapThreshold,
             $this->skillPoints,
             $this->str,
             $this->dex,
@@ -49,6 +51,12 @@ class CharacterBuilder
     public function setExp(int $exp): self
     {
         $this->exp = $exp;
+        return $this;
+    }
+
+    public function setExpCapThreshold(int $expCapThreshold): self
+    {
+        $this->expCapThreshold = $expCapThreshold;
         return $this;
     }
 
