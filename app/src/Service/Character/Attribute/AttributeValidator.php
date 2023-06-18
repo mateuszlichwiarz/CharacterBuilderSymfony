@@ -9,7 +9,6 @@ use App\Service\Character\Attribute\SkillPointsCalculator;
 
 class AttributeValidator
 {
-
     public function __construct(
         private SkillPoints $skillPoints,
         private SumCharacterAttributes $sumCharacterAttributes,
@@ -21,12 +20,12 @@ class AttributeValidator
         if(($this->checkAttributes($character, $requestAttributes) &&
         $this->skillPoints->isGreaterThanZero($character) === true)) {
 
-            if($this->spCalculator->calculate($character, $requestAttributes) <= $character->getSkillPoints()){
+            if($this->spCalculator->calculate($character, $requestAttributes) <= $character->getSkillPoints()) {
                 return true;
-            }else{
+            }else {
                 return false;
             }
-        }else{
+        }else {
             return false;
         }
     }
@@ -42,5 +41,4 @@ class AttributeValidator
             return false;
         }
     }
-
 }
