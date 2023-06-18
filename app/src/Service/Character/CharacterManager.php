@@ -116,7 +116,7 @@ class CharacterManager
         return $user->getPlayerCharacter();
     }
 
-    private function getUserId(): int
+    public function getUserId(): int
     {
         /** @var User $user */
         $user = $this->security->getUser();
