@@ -7,23 +7,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Bundle\SecurityBundle\Security;
 
-use App\Service\Character\Attribute\Lvl\LvlUp;
+use App\Service\Character\Attribute\Lvl\CharacterLeveling;
 use App\Service\Character\CharacterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class LevelUpController extends AbstractController
+class CharacterLevelingController extends AbstractController
 {
     public function __construct(
-        private LvlUp $lvlUp,
+        private CharacterLeveling $characterLeveling,
         private Security $security,
         private CharacterManager $characterManager,
     ){}
 
     #[Route('/character/level_up', name: 'level_up')]
-    public function newLevelAction(): Response
+    public function levelUpAction(): Response
     {
         $character = $this->characterManager->getUserCharacter();
-        $this->lvlUp->execute($character);
+        $this->characterLeveling->levelUp($character);
 
         return $this->redirectToRoute('character_show');
     }
