@@ -2,15 +2,12 @@
 
 namespace App\Form\Character;
 
-use App\Entity\Character;
-
 use Symfony\Component\Form\AbstractType;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 class CreateCharacterFormType extends AbstractType
@@ -19,14 +16,8 @@ class CreateCharacterFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('type', TextType::class)
             ->add('save', SubmitType::class)
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Character::class,
-        ]);
     }
 }
