@@ -58,11 +58,15 @@ class Character
     #[ORM\OneToMany(mappedBy: 'winner', targetEntity: Combat::class)]
     private Collection $winner;
 
+    #[ORM\Column]
+    private ?int $expCapThreshold = null;
+
     public function __construct(
         string $name,
         int $hp,
         int $lvl,
         int $exp,
+        int $expCapThreshold,
         int $skillPoints,
         int $str,
         int $dex,
@@ -78,9 +82,10 @@ class Character
         $this->str  = $str;
         $this->dex  = $dex;
         $this->wis  = $wis;
-        $this->skillPoints = $skillPoints;
         $this->weapon = $weapon;
         $this->armor  = $armor;
+        $this->skillPoints = $skillPoints;
+        $this->expCapThreshold = $expCapThreshold;
 
 
         $this->tours = new ArrayCollection();
@@ -332,6 +337,11 @@ class Character
         }
 
         return $this;
+    }
+
+    public function getExpCapThreshold(): ?int
+    {
+        return $this->expCapThreshold;
     }
 
 }
