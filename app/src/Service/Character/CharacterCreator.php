@@ -40,6 +40,7 @@ class CharacterCreator
                 ->setWis(10)
                 ->setLvl(1)
                 ->setExp(0)
+                ->setExpCapThreshold(1000)
                 ->equipArmor($this->findArmor('pantaloons'))
                 ->equipWeapon($this->findWeapon('fists'))
                 ->buildCharacter(),
@@ -53,6 +54,7 @@ class CharacterCreator
                 ->setWis(10)
                 ->setLvl(1)
                 ->setExp(0)
+                ->setExpCapThreshold(1000)
                 ->equipArmor($this->findArmor('pantaloons'))
                 ->equipWeapon($this->findWeapon('fists'))
                 ->buildCharacter(),
@@ -66,6 +68,7 @@ class CharacterCreator
                 ->setWis(20)
                 ->setLvl(1)
                 ->setExp(0)
+                ->setExpCapThreshold(1000)
                 ->equipArmor($this->findArmor('pantaloons'))
                 ->equipWeapon($this->findWeapon('fists'))
                 ->buildCharacter(),
