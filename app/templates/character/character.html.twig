@@ -134,7 +134,7 @@
     <body>
         <div class="character">
             Your character: <br>
-            {{ character.name() }}
+            {{ character.name()|capitalize }}
             <br>
             ----------------------------
             <div class="info">
@@ -167,7 +167,7 @@
                     <div id="dex_decrease" style="display: inline-block;"></div>
                 </div>
                 <div id="wis">
-                Wisdom:
+                    Wisdom:
                     <div id="wis_value">{{ character.getWis() }}</div>
                         <div id="wis_increase" style="display: inline-block;">
                             <button onclick="changeWisAttr('add');" type="button"> + </button>
@@ -182,13 +182,13 @@
             <div class="equipment">
                 Equipment:
                 <br><br>
-                Weapon: {{ character.getWeapon().getName() }}
+                Weapon: {{ character.getWeapon().getName()|capitalize }}
                 <br>
                 Damage: {{ character.getWeapon().getDmg() }}
                 <br>
                 Type: {{ character.getWeapon().getType()}}
                 <br><br>
-                Armor: {{ character.getArmor().getName() }}
+                Armor: {{ character.getArmor().getName()|capitalize }}
                 <br>
                 Defense: {{ character.getArmor().getDef() }}
                 <br>
